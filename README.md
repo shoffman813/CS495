@@ -4,4 +4,4 @@ Tutorly is a peer to peer tutoring service. Our app allows users to register as 
 
 # Header2
 
-[test](https://github.com/shoffman813/Tutorly/blob/master/about-us.md)
+[test](about-us.md)
