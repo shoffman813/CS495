@@ -8,3 +8,6 @@ I am a senior at the University of Alabama with a major in computer science and 
 
 ## Elysse Kimmel
 I am a senior Computer Science student and the University of Alabama. I plan to graduate in May 2019 and will be returning to UA next year to pursue an MBA. 
+
+##Jack Hawblitzel
+I am currently a senior at the University of Alabama majoring in computer science.  I will graduate in May and return next year to get my MBA with a concentration in financial engineering.
