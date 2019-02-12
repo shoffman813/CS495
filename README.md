@@ -1,4 +1,4 @@
-## [Home](README.md) || [About Us](about-us.md)
+## [Home](README.md) || [Project Deliverables](project-deliverables.md) || [About Us](about-us.md)
 
 # What is Tutorly?
 
