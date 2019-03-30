@@ -14,11 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".profileActivity"></activity>
-        <activity android:name=".AccountActivity"></activity>
+        <activity android:name=".SessionHistoryActivity"></activity>
+        <activity android:name=".SessionsScheduledActivity" />
+        <activity android:name=".SessionRequestsActivity" />
+        <activity android:name=".PaymentInfoActivity" />
+        <activity android:name=".TutorSearchListActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".profileActivity" />
+        <activity android:name=".AccountActivity" />
         <activity
             android:name=".LoginActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
