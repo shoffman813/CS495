@@ -59,6 +59,8 @@
             tools:layout_editor_absoluteX="101dp"
             tools:layout_editor_absoluteY="255dp" />
 
+    </LinearLayout>
+
         <!--
         <Button
             android:id="@+id/ProfileBtn"
@@ -87,7 +89,5 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="start"
             app:menu="@layout/my_navigation_items" />
-
-    </LinearLayout>
 
 </RelativeLayout>
