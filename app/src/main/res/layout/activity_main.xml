@@ -1,53 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="61dp">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="131dp"
             android:layout_height="52dp"
+            android:layout_marginLeft="125dp"
             android:text="Tutorly"
             android:textSize="36sp"
-            android:layout_marginLeft="125dp"
             app:fontFamily="sans-serif-black"
             tools:layout_editor_absoluteX="140dp"
             tools:layout_editor_absoluteY="34dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="49dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="50dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Search for Tutors"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="300dp" />
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="49dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="100dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Search for Tutors"
+                tools:layout_editor_absoluteX="100dp"
+                tools:layout_editor_absoluteY="300dp" />
 
-        <Button
-        android:id="@+id/SearchBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-        android:text="Search"
-        tools:layout_editor_absoluteX="282dp"
-        tools:layout_editor_absoluteY="195dp" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/SearchBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="Search"
+                tools:layout_editor_absoluteX="282dp"
+                tools:layout_editor_absoluteY="195dp" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/AdvSearchBtn"
@@ -58,23 +59,35 @@
             tools:layout_editor_absoluteX="101dp"
             tools:layout_editor_absoluteY="255dp" />
 
+        <!--
         <Button
-        android:id="@+id/ProfileBtn"
-        android:layout_width="407dp"
-        android:layout_height="74dp"
-        android:text="Profile"
+            android:id="@+id/ProfileBtn"
+            android:layout_width="407dp"
+            android:layout_height="74dp"
             android:layout_marginTop="200dp"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="527dp" />
+            android:text="Profile"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="527dp" />
 
-    <Button
-        android:id="@+id/AccountBtn"
-        android:layout_width="407dp"
-        android:layout_height="74dp"
-        android:text="Account Settings"
-        android:layout_marginTop="5dp"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="614dp" />
+        <Button
+            android:id="@+id/AccountBtn"
+            android:layout_width="407dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="5dp"
+            android:text="Account Settings"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="614dp" />
+
+        -->
+        <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="start"
+            app:menu="@layout/my_navigation_items" />
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
