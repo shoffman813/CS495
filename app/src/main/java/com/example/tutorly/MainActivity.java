@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
+        /*
         Button btn = (Button)findViewById(R.id.ProfileBtn);
         Button btn2 = (Button)findViewById(R.id.AccountBtn);
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, AccountActivity.class));
                 }
         });
+        */
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
