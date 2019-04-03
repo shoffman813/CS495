@@ -6,22 +6,27 @@
 
     <item android:id="@+id/profile_item"
         android:title="@string/profile_str"
+        android:visible="true"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/settings_item"
         android:title="@string/settings_str"
+        android:visible="true"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/home_item"
         android:title="@string/home_str"
+        android:visible="true"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/scheduled_item"
         android:title="@string/scheduled_str"
+        android:visible="true"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/requested_item"
         android:title="@string/requested_str"
+        android:visible="true"
         app:showAsAction="ifRoom"/>
 
 </menu>
