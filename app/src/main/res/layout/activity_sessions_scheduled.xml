@@ -29,11 +29,20 @@
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="376dp"
-        android:layout_height="375dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="302dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/scheduled_list"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <ListView
+        android:id="@+id/scheduled_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="460dp" />
 
     <Button
         android:id="@+id/SessionHistoryBtn"
@@ -42,12 +51,6 @@
         android:layout_gravity="center"
         android:text="Session History"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <ListView
-        android:id="@+id/scheduled_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="470dp"/>
 
 </android.support.constraint.ConstraintLayout>
 
