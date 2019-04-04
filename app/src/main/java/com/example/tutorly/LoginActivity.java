@@ -37,7 +37,6 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.Au;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -326,7 +325,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         startActivity(new Intent(LoginActivity.this, profileActivity.class));
                     }
                 }
-            };
+            });
+
 
 
             //TODO: delete after replaced
