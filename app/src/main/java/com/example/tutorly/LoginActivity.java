@@ -326,10 +326,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 }
             });
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 
             //TODO: delete after replaced
