@@ -3,6 +3,7 @@ package com.example.tutorly;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.Au;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 /**
  * A login screen that offers login via email/password. test
@@ -299,6 +307,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mEmail;
         private final String mPassword;
 
+        FirebaseAuth firebaseAuth;
+
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
@@ -307,7 +317,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
+            firebaseAuth = FirebaseAuth.getInstance();
 
+            firebaseAuth.signInWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        startActivity(new Intent(LoginActivity.this, profileActivity.class));
+                    }
+                }
+            };
+
+
+            //TODO: delete after replaced
+            /*
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -322,7 +345,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }
-
+    */
             // TODO: register the new account here.
             return true;
         }
