@@ -43,12 +43,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/SearchBtn"
+        android:id="@+id/SessionHistoryBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
         android:text="Session History"
-        android:layout_gravity="center" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
 

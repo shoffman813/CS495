@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class SessionsScheduledActivity extends AppCompatActivity {
 
@@ -13,6 +15,15 @@ public class SessionsScheduledActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sessions_scheduled);
+
+        Button btn = (Button)findViewById(R.id.SessionHistoryBtn);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {8
+                startActivity(new Intent(SessionsScheduledActivity.this, SessionHistoryActivity.class));
+            }
+        });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
