@@ -191,4 +191,5 @@ android:layout_alignParentBottom="true">
     app:menu="@layout/my_navigation_items" />
 
 </RelativeLayout>
+
 </RelativeLayout>
