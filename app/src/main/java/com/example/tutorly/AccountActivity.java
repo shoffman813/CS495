@@ -1,11 +1,15 @@
 package com.example.tutorly;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class AccountActivity extends AppCompatActivity {
@@ -49,5 +53,28 @@ public class AccountActivity extends AppCompatActivity {
             String cardnum = getIntent().getExtras().getString("com.example.tutorly.cardNum");
             tv.setText(cardnum);
         }
+
+        Button submit = (Button)findViewById(R.id.saveBtn);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText uname = (EditText) findViewById(R.id.Uname);
+                String text1 = uname.getText().toString();
+                EditText ulname = (EditText) findViewById(R.id.Uname);
+                String text2 = ulname.getText().toString();
+                Intent toProf = new Intent(getApplicationContext(), profileActivity.class);
+                toProf.putExtra("com.example.tutorly.cardNum", text1);
+                startActivity(toProf);
+            }
+        });
+
+        Button payInfo = (Button)findViewById(R.id.button4);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toPaymentInfo = new Intent(getApplicationContext(), PaymentInfoActivity.class);
+                startActivity(toPaymentInfo);
+            }
+        });
     }
 }

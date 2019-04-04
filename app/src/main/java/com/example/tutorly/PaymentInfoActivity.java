@@ -22,6 +22,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText ccNum = (EditText) findViewById(R.id.editText3);
                 String text = ccNum.getText().toString();
+                text = "Pay with card number"+text;
                 Intent toAcct = new Intent(getApplicationContext(), AccountActivity.class);
                 toAcct.putExtra("com.example.tutorly.cardNum", text);
                 startActivity(toAcct);
