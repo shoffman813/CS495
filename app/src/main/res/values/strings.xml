@@ -21,6 +21,7 @@
     <string name ="prompt_first_name">First Name</string>
     <string name ="prompt_last_name">Last Name</string>
     <string name ="prompt_bio">Short Bio (Tutoring Experience, etc.)</string>
+    <string name ="prompt_pw_short">Password</string>
 
     <string-array name="colleges_array">
         <item>Select One</item>

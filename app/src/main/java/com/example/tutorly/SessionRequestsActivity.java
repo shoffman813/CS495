@@ -6,13 +6,45 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class SessionRequestsActivity extends AppCompatActivity {
+
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_requests);
+
+        Session session1 = new Session("John Smith", 4, 12, 5, 30, "Gorgas Library" );
+        Session session2 = new Session("Jane Doe", 4, 13, 2, 15, "Rodgers Library" );
+        Session session3 = new Session("Thanos Jones", 4, 26, 6, 30, "McLure Library" );
+        Session session4 = new Session("Jane Doe", 5, 1, 4, 45, "Gorgas Library" );
+        Session session5 = new Session("Jimmy Walker", 5, 2, 3, 30, "McLure Library" );
+
+        listView = (ListView) findViewById(R.id.listview);
+
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        arrayList.add("Requested session with " + session1.getTutorName() + " at " + session1.getMeetingHour()
+                +":" + session1.getMeetingMinute() + " at " + session1.getMeetingLocation());
+        arrayList.add("Requested session with " + session2.getTutorName() + " at " + session2.getMeetingHour()
+                +":" + session2.getMeetingMinute() + " at " + session2.getMeetingLocation());
+        arrayList.add("Requested session with " + session3.getTutorName() + " at " + session3.getMeetingHour()
+                +":" + session3.getMeetingMinute() + " at " + session3.getMeetingLocation());
+        arrayList.add("Requested session with " + session4.getTutorName() + " at " + session4.getMeetingHour()
+                +":" + session4.getMeetingMinute() + " at " + session4.getMeetingLocation());
+        arrayList.add("Requested session with " + session5.getTutorName() + " at " + session5.getMeetingHour()
+                +":" + session5.getMeetingMinute() + " at " + session5.getMeetingLocation());
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
+        listView.setAdapter(arrayAdapter);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
