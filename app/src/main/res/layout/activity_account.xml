@@ -62,8 +62,7 @@
                 android:layout_height="29dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginLeft="25dp"
-                android:text="Username" />
-                android:text="Username" />
+                android:text="First Name" />
 
             <TextView
                 android:id="@+id/Username"
@@ -77,7 +76,7 @@
             android:layout_height="31dp"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
-            android:text="Name" />
+            android:text="Last Name" />
 
         <TextView
             android:id="@+id/Email"
@@ -164,6 +163,14 @@
             android:textSize="18sp"
             tools:layout_editor_absoluteX="161dp"
             tools:layout_editor_absoluteY="653dp" />
+
+        <Button
+            android:id="@+id/SearchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Search"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
