@@ -18,4 +18,18 @@
     <string name ="home_str">Home</string>
     <string name = "scheduled_str">Scheduled</string>
     <string name = "requested_str">Requested</string>
+    <string name ="prompt_first_name">First Name</string>
+    <string name ="prompt_last_name">Last Name</string>
+    <string name ="prompt_bio">Short Bio (Tutoring Experience, etc.)</string>
+
+    <string-array name="colleges_array">
+        <item>Select One</item>
+        <item>University of Alabama</item>
+        <item>Auburn University</item>
+        <item>Mississippi State University</item>
+        <item>Vanderbilt University</item>
+        <item>University of Florida</item>
+        <item>University of Kentucky</item>
+        <item>University of Tennessee</item>
+    </string-array>
 </resources>
