@@ -4,179 +4,220 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AccountActivity">
-
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:layout_height="match_parent"
+            tools:context=".AccountActivity">
 
-        <TextView
-            android:id="@+id/Account"
-            android:layout_width="238dp"
-            android:layout_height="42dp"
-            android:text=" Account Settings"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginStart="1dp"
-            android:layout_marginLeft="1dp"
-            app:fontFamily="sans-serif-black" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/UserInfo"
-            android:layout_width="163dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
-            android:text=" User Information"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="105dp" />
+                <TextView
+                    android:id="@+id/Account"
+                    android:layout_width="238dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:text=" Account Settings"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:fontFamily="sans-serif-black" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/UserInfo"
+                    android:layout_width="163dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:text=" User Information"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="105dp" />
 
-            <TextView
-                android:id="@+id/Uname"
-                android:layout_width="82dp"
-                android:layout_height="29dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:text="First Name" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/Username"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/firstName"
+                        android:layout_width="82dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:text="First Name" />
 
-        <TextView
-            android:id="@+id/Name"
-            android:layout_width="80dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:text="Last Name" />
+                    <EditText
+                        android:id="@+id/enterFirstName"
+                        android:layout_width="270dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="25dp"
+                        android:inputType="text" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/Email"
-            android:layout_width="89dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:text="Email (.edu)" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
-        <TextView
-            android:id="@+id/PhoneNumber"
-            android:layout_width="108dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:text="Phone Number" />
+                    <TextView
+                        android:id="@+id/lastName"
+                        android:layout_width="80dp"
+                        android:layout_height="31dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:text="Last Name" />
 
-        <TextView
-            android:id="@+id/PaymentInfo"
-            android:layout_width="179dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
-            android:text=" Payment Information"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="244dp" />
+                    <EditText
+                        android:id="@+id/enterLastName"
+                        android:layout_width="270dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="27dp"
+                        android:inputType="text" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pay with Venmo" />
+                </LinearLayout>
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Credit Card Information" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="210dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
-            android:text=" Notification Settings"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/Email"
+                        android:layout_width="89dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:text="Email (.edu)" />
 
-        <Switch
-            android:id="@+id/SMSNotification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:text="SMS Notifications" />
+                    <EditText
+                        android:id="@+id/enterEmail"
+                        android:layout_width="270dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="19dp"
+                        android:inputType="textEmailAddress" />
 
-        <Switch
-            android:id="@+id/EmailNotification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:text="Email Notifications" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Delete Account"
-            android:textColor="@android:color/holo_red_dark" />
+                    <TextView
+                        android:id="@+id/PhoneNumber"
+                        android:layout_width="108dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:text="Phone Number" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="LOG OUT"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="653dp" />
+                    <EditText
+                        android:id="@+id/enterPhoneNumber"
+                        android:layout_width="270dp"
+                        android:layout_height="40dp"
+                        android:inputType="phone"
+                        android:layout_marginLeft="0dp"/>
 
-        <Button
-            android:id="@+id/saveBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="Save" />
+                </LinearLayout>
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/PaymentInfo"
+                    android:layout_width="179dp"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="10dp"
+                    android:text=" Payment Information"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="244dp" />
 
-</android.support.constraint.ConstraintLayout>
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pay with Venmo" />
 
-</ScrollView>
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Credit Card Information" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="210dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:text=" Notification Settings"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Switch
+                    android:id="@+id/SMSNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="SMS Notifications" />
+
+                <Switch
+                    android:id="@+id/EmailNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="Email Notifications" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Delete Account"
+                    android:textColor="@android:color/holo_red_dark" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LOG OUT"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="161dp"
+                    tools:layout_editor_absoluteY="653dp" />
+
+                <Button
+                    android:id="@+id/saveBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="Save" />
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
 <RelativeLayout
 android:layout_width="match_parent"

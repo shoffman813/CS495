@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/*Class for the account screen*/
 public class AccountActivity extends AppCompatActivity {
 
     @Override
@@ -19,6 +20,7 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        /*Creates the bottom navigation toolbar and links to other activities*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -26,19 +28,19 @@ public class AccountActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.profile_item:
+                            case R.id.profile_item: //Open Profile screen when button is pressed
                                 startActivity(new Intent(AccountActivity.this, profileActivity.class));
                                 break;
-                            case R.id.settings_item:
+                            case R.id.settings_item: //Open Settings screen when button is pressed
                                 startActivity(new Intent(AccountActivity.this, AccountActivity.class));
                                 break;
-                            case R.id.home_item:
+                            case R.id.home_item: //Open Home screen when button is pressed
                                 startActivity(new Intent(AccountActivity.this, MainActivity.class));
                                 break;
-                            case R.id.scheduled_item:
+                            case R.id.scheduled_item: //Open Scheduled Sessions screen when button is pressed
                                 startActivity(new Intent(AccountActivity.this, SessionsScheduledActivity.class));
                                 break;
-                            case R.id.requested_item:
+                            case R.id.requested_item: //Open Requested Sessions screen when button is pressed
                                 startActivity(new Intent(AccountActivity.this, SessionRequestsActivity.class));
                                 break;
                         }
@@ -54,21 +56,21 @@ public class AccountActivity extends AppCompatActivity {
             tv.setText(cardnum);
         }
 
-        Button submit = (Button)findViewById(R.id.saveBtn);
+        Button submit = (Button)findViewById(R.id.button4); //Saves information to account screen
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText uname = (EditText) findViewById(R.id.Uname);
-                String text1 = uname.getText().toString();
-                EditText ulname = (EditText) findViewById(R.id.Uname);
-                String text2 = ulname.getText().toString();
+                EditText firstName = (EditText) findViewById(R.id.enterFirstName);
+                String text1 = firstName.getText().toString(); //Saving entered account info
+                EditText lastName = (EditText) findViewById(R.id.enterLastName);
+                String text2 = lastName.getText().toString(); //Saving entered account info
                 Intent toProf = new Intent(getApplicationContext(), profileActivity.class);
                 toProf.putExtra("com.example.tutorly.cardNum", text1);
-                startActivity(toProf);
+                startActivity(toProf); //Opens profile to display saved account information
             }
         });
 
-        Button payInfo = (Button)findViewById(R.id.button4);
+        Button payInfo = (Button)findViewById(R.id.saveBtn); //Opens the new Payment Information activity screen
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
