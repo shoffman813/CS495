@@ -20,7 +20,7 @@ public class SessionsScheduledActivity extends AppCompatActivity {
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {8
+            public void onClick(View v) {
                 startActivity(new Intent(SessionsScheduledActivity.this, SessionHistoryActivity.class));
             }
         });
