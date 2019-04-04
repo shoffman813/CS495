@@ -6,4 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".PaymentInfoActivity">
 
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="241dp"
+        android:layout_height="49dp"
+        android:ems="10"
+        android:hint="Expiration Date"
+        android:inputType="date"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="309dp" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="16 Digit Card Number"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="244dp" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="3 Digit CVV"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="378dp" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Zip Code"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="448dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="300dp"
+        android:layout_height="94dp"
+        android:text="New Payment Information"
+        android:textColor="@color/colorPrimary"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="81dp" />
+
 </android.support.constraint.ConstraintLayout>
