@@ -16,7 +16,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
 
 
 
-        Button submit = (Button)findViewById(R.id.button6);
+        Button submit = (Button)findViewById(R.id.button6); //Lets user add card number to payment info
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

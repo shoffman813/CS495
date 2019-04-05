@@ -3,13 +3,9 @@ package com.example.tutorly;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,28 +14,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class); //Opens login screen upon start
         startActivity(intent);
 
-
-        /*
-        Button btn = (Button)findViewById(R.id.ProfileBtn);
-        Button btn2 = (Button)findViewById(R.id.AccountBtn);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                        startActivity(new Intent(MainActivity.this, profileActivity.class));
-                }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                        startActivity(new Intent(MainActivity.this, AccountActivity.class));
-                }
-        });
-        */
+        /*Code to add bottom navigation bar to the Main screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -47,19 +25,19 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.profile_item:
+                            case R.id.profile_item: //Open Profile screen when button is pressed
                                 startActivity(new Intent(MainActivity.this, profileActivity.class));
                                 break;
-                            case R.id.settings_item:
+                            case R.id.settings_item: //Open Settings screen when button is pressed
                                 startActivity(new Intent(MainActivity.this, AccountActivity.class));
                                 break;
-                            case R.id.home_item:
+                            case R.id.home_item: //Open Home screen when button is pressed
                                 startActivity(new Intent(MainActivity.this, MainActivity.class));
                                 break;
-                            case R.id.scheduled_item:
+                            case R.id.scheduled_item: //Open Scheduled Sessions screen when button is pressed
                                 startActivity(new Intent(MainActivity.this, SessionsScheduledActivity.class));
                                 break;
-                            case R.id.requested_item:
+                            case R.id.requested_item: //Open Requested Sessions screen when button is pressed
                                 startActivity(new Intent(MainActivity.this, SessionRequestsActivity.class));
                                 break;
                         }

@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/*Class to hold a record of a user's currently scheduled sessions*/
 public class SessionsScheduledActivity extends AppCompatActivity {
 
     ListView listView2;
@@ -26,11 +27,12 @@ public class SessionsScheduledActivity extends AppCompatActivity {
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //A button to view the session history screen
                 startActivity(new Intent(SessionsScheduledActivity.this, SessionHistoryActivity.class));
             }
         });
 
+        /*Populating the sessions scheduled screen with mock data for the demo*/
         Session session1 = new Session("John Smith", 4, 12, 5, 30, "Gorgas Library" );
         Session session2 = new Session("Jane Doe", 4, 13, 2, 15, "Rodgers Library" );
         Session session3 = new Session("Thanos Jones", 4, 26, 6, 30, "McLure Library" );
@@ -41,6 +43,7 @@ public class SessionsScheduledActivity extends AppCompatActivity {
 
         ArrayList<String> arrayList = new ArrayList<>();
 
+        /*Adding the session descriptions to the ArrayList*/
         arrayList.add("Scheduled session with " + session1.getTutorName() + " at " + session1.getMeetingHour()
                 +":" + session1.getMeetingMinute() + " at " + session1.getMeetingLocation());
         arrayList.add("Scheduled session with " + session2.getTutorName() + " at " + session2.getMeetingHour()
@@ -52,9 +55,11 @@ public class SessionsScheduledActivity extends AppCompatActivity {
         arrayList.add("Scheduled session with " + session5.getTutorName() + " at " + session5.getMeetingHour()
                 +":" + session5.getMeetingMinute() + " at " + session5.getMeetingLocation());
 
+        /*Using ArrayAdapter to populate ListView with session data*/
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
         listView2.setAdapter(arrayAdapter);
 
+        /*Code to add bottom navigation bar to the sessions request screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -62,19 +67,19 @@ public class SessionsScheduledActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.profile_item:
+                            case R.id.profile_item: //Open Profile screen when button is pressed
                                 startActivity(new Intent(SessionsScheduledActivity.this, profileActivity.class));
                                 break;
-                            case R.id.settings_item:
+                            case R.id.settings_item: //Open Settings screen when button is pressed
                                 startActivity(new Intent(SessionsScheduledActivity.this, AccountActivity.class));
                                 break;
-                            case R.id.home_item:
+                            case R.id.home_item: //Open Home screen when button is pressed
                                 startActivity(new Intent(SessionsScheduledActivity.this, MainActivity.class));
                                 break;
-                            case R.id.scheduled_item:
+                            case R.id.scheduled_item: //Open Scheduled Sessions screen when button is pressed
                                 startActivity(new Intent(SessionsScheduledActivity.this, SessionsScheduledActivity.class));
                                 break;
-                            case R.id.requested_item:
+                            case R.id.requested_item: //Open Requested Sessions screen when button is pressed
                                 startActivity(new Intent(SessionsScheduledActivity.this, SessionRequestsActivity.class));
                                 break;
                         }

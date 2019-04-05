@@ -14,7 +14,7 @@ public class profileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
+        /*Adds bottom navigation bar to profile screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -22,19 +22,19 @@ public class profileActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.profile_item:
+                            case R.id.profile_item: //Open Profile screen when button is pressed
                                 startActivity(new Intent(profileActivity.this, profileActivity.class));
                                 break;
-                            case R.id.settings_item:
+                            case R.id.settings_item: //Open Settings screen when button is pressed
                                 startActivity(new Intent(profileActivity.this, AccountActivity.class));
                                 break;
-                            case R.id.home_item:
+                            case R.id.home_item: //Open Home screen when button is pressed
                                 startActivity(new Intent(profileActivity.this, MainActivity.class));
                                 break;
-                            case R.id.scheduled_item:
+                            case R.id.scheduled_item: //Open Scheduled Sessions screen when button is pressed
                                 startActivity(new Intent(profileActivity.this, SessionsScheduledActivity.class));
                                 break;
-                            case R.id.requested_item:
+                            case R.id.requested_item: //Open Requested Sessions screen when button is pressed
                                 startActivity(new Intent(profileActivity.this, SessionRequestsActivity.class));
                                 break;
                         }
