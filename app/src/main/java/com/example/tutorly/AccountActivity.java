@@ -1,7 +1,9 @@
 package com.example.tutorly;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,10 +17,28 @@ import android.widget.TextView;
 /*Class for the account screen*/
 public class AccountActivity extends AppCompatActivity {
 
+    public static final String PREFS_NAME = "MyPrefsFile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
+        Button btn = (Button)findViewById(R.id.logout_button);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //Button to login to app
+                SharedPreferences preferences = getSharedPreferences(AccountActivity.PREFS_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+                finish();
+
+                Intent intent = new Intent(AccountActivity.this, MainActivity.class); //Opens login screen upon start
+                startActivity(intent);
+            }
+        });
 
         /*Creates the bottom navigation toolbar and links to other activities*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);

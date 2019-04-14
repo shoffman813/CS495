@@ -197,7 +197,7 @@
                     android:textColor="@android:color/holo_red_dark" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/logout_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="LOG OUT"
