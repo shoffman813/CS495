@@ -1,6 +1,7 @@
 package com.example.tutorly;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,13 +10,22 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String PREFS_NAME = "MyPrefsFile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoginActivity.class); //Opens login screen upon start
-        startActivity(intent);
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
+        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
+
+        if(!hasLoggedIn)
+        {
+            Intent intent = new Intent(this, LoginActivity.class); //Opens login screen upon start
+            startActivity(intent);
+        }
 
         /*Code to add bottom navigation bar to the Main screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
