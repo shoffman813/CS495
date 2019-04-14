@@ -24,7 +24,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="30dp">
 
             <EditText
                 android:id="@+id/first_name_register"
@@ -40,7 +40,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="20dp">
 
             <EditText
                 android:id="@+id/last_name_register"
@@ -57,14 +57,14 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:entries="@array/colleges_array"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="20dp">
 
             <EditText
                 android:id="@+id/email_register"
@@ -81,7 +81,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="20dp">
 
             <EditText
                 android:id="@+id/password_register"
@@ -103,5 +103,13 @@
             android:layout_gravity="center" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

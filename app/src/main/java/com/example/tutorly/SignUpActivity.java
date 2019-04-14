@@ -29,6 +29,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,8 @@ public class SignUpActivity extends AppCompatActivity {
                 registerUser();
             }
         });
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     private void registerUser() {
@@ -89,18 +93,18 @@ public class SignUpActivity extends AppCompatActivity {
 
         //All validations are passed
 
-        //progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        //progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()) {
                             //user is successfully registered and logged in
                             //start main activity
 
-                            //temporary toast
                             Toast.makeText(SignUpActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                         }
 
