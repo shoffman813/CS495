@@ -13,7 +13,20 @@
           "package_name": "com.example.tutorly"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1050945131469-io6mqffeqvsdcpd3uk67ednqrcno5bk8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tutorly",
+            "certificate_hash": "a0d7c040ce84550a07361df247bbbc06a4a8b64f"
+          }
+        },
+        {
+          "client_id": "1050945131469-l5ko089cmd2a67p7q185accq9cmu3k1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB-gsozUlRBucDdkU7g84kVmX-J1QCw6NU"

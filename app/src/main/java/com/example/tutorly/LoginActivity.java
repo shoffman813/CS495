@@ -73,11 +73,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        // Set up the login form.
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email); //Email login
+        populateAutoComplete();
+        mPasswordView = (EditText) findViewById(R.id.password); //Password login
+        TextView textViewRegister = (TextView) findViewById(R.id.textViewRegister); //For new user going to sign up page
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //A button to send user to registration screen
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+            }
+        });
+
+        /*
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -98,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mProgressView = findViewById(R.id.login_progress);*/
     }
 
     private void populateAutoComplete() {
