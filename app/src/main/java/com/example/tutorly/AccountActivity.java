@@ -37,6 +37,7 @@ public class AccountActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AccountActivity.this, MainActivity.class); //Opens login screen upon start
                 startActivity(intent);
+                AccountActivity.this.finish();
             }
         });
 

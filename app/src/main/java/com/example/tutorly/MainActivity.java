@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Intent intent = new Intent(this, LoginActivity.class); //Opens login screen upon start
             startActivity(intent);
+            MainActivity.this.finish();
         }
 
         /*Code to add bottom navigation bar to the Main screen*/
