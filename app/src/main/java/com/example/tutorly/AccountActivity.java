@@ -77,7 +77,7 @@ public class AccountActivity extends AppCompatActivity {
             tv.setText(cardnum);
         }
 
-        Button submit = (Button)findViewById(R.id.button4); //Saves information to account screen
+       /* Button submit = (Button)findViewById(R.id.button4); //Saves information to account screen
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +98,6 @@ public class AccountActivity extends AppCompatActivity {
                 Intent toPaymentInfo = new Intent(getApplicationContext(), PaymentInfoActivity.class);
                 startActivity(toPaymentInfo);
             }
-        });
+        }); */
     }
 }

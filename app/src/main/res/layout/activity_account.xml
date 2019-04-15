@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -58,7 +59,7 @@
                         android:text="First Name" />
 
                     <EditText
-                        android:id="@+id/enterFirstName"
+                        android:id="@+id/first_name_profile"
                         android:layout_width="270dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="25dp"
@@ -80,7 +81,7 @@
                         android:text="Last Name" />
 
                     <EditText
-                        android:id="@+id/enterLastName"
+                        android:id="@+id/last_name_profile"
                         android:layout_width="270dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="27dp"
@@ -103,7 +104,7 @@
                         android:text="Email (.edu)" />
 
                     <EditText
-                        android:id="@+id/enterEmail"
+                        android:id="@+id/email_profile"
                         android:layout_width="270dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="19dp"
@@ -126,7 +127,7 @@
                         android:text="Phone Number" />
 
                     <EditText
-                        android:id="@+id/enterPhoneNumber"
+                        android:id="@+id/phone_number_profile"
                         android:layout_width="270dp"
                         android:layout_height="40dp"
                         android:inputType="phone"
@@ -147,13 +148,13 @@
                     tools:layout_editor_absoluteY="244dp" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/payWithVenmoBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pay with Venmo" />
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/creditCardInfoBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Credit Card Information" />
@@ -190,7 +191,7 @@
                     android:layout_height="wrap_content" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/delete_account_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Delete Account"
