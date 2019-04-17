@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,16 +20,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /*The sign up screen for a new user*/
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText editTextFirstName;
-    private EditText editTextLastName;
+    EditText editTextFirstName;
+    EditText editTextLastName;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private FirebaseAuth mAuth;
+    Spinner collegeSpinner;
+    Button btn;
     ProgressBar progressBar;
+    DatabaseReference databaseUsers;
+
+    String firstName, lastName, email;
+    String college;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +45,21 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
-       // progressBar = new ProgressBar(SignUpActivity.this,null,android.R.attr.progressBarStyleLarge);
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
         editTextFirstName = (EditText) findViewById(R.id.first_name_register);
         editTextLastName = (EditText) findViewById(R.id.last_name_register);
+        collegeSpinner = (Spinner) findViewById(R.id.colleges_spinner);
         editTextEmail = (EditText) findViewById(R.id.email_register);
         editTextPassword = (EditText) findViewById(R.id.password_register);
-        //Add variable for college spinner!!
 
-        Button btn = (Button)findViewById(R.id.RegisterBtn); //Button to submit registration
+        btn = (Button)findViewById(R.id.RegisterBtn); //Button to submit registration
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //A button to view the session history screen
                 registerUser();
+                addInformationToUser();
             }
         });
 
@@ -57,8 +67,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
-        String email = editTextEmail.getText().toString().trim();
+        email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        firstName = editTextFirstName.getText().toString().trim();
+        lastName = editTextLastName.getText().toString().trim();
+        college = collegeSpinner.getSelectedItem().toString();
 
         //Validating email and password
 
@@ -88,6 +101,14 @@ public class SignUpActivity extends AppCompatActivity {
             editTextPassword.setError("Minimum length of password is 6 characters");
             editTextPassword.requestFocus();
             return;
+        }
+
+        if(TextUtils.isEmpty(firstName)) {
+            Toast.makeText(this, "You must enter your full name", Toast.LENGTH_SHORT).show();
+        }
+
+        if(TextUtils.isEmpty(lastName)) {
+            Toast.makeText(this, "You must enter your full name", Toast.LENGTH_SHORT).show();
         }
 
         //All validations are passed
@@ -121,5 +142,13 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void addInformationToUser() {
+        String id = databaseUsers.push().getKey(); //ID generated uniquely
+
+        User user = new User(id, firstName, lastName, email, college);
+
+        databaseUsers.child(id).setValue(user);
     }
 }

@@ -2,13 +2,15 @@ package com.example.tutorly;
 
 public class User {
 
+    private String userID;
     private String firstName;
     private String lastName;
-    private String email;
+    private String email; //Primary key
     private String university;
 
     /*Class constructor*/
-    public User(String firstName, String lastName, String email, String university) {
+    public User(String userID, String firstName, String lastName, String email, String university) {
+        this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -17,6 +19,14 @@ public class User {
 
     public User() {
         //empty constructor
+    }
+
+    public String getUserID() {
+        return this.userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getFirstName() {
