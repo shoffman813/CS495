@@ -7,14 +7,16 @@ public class User {
     private String lastName;
     private String email; //Primary key
     private String university;
+    private int isTutor; //Initially set to zero upon sign up
 
     /*Class constructor*/
-    public User(String userID, String firstName, String lastName, String email, String university) {
+    public User(String userID, String firstName, String lastName, String email, String university, int isTutor) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.university = university;
+        this.isTutor = isTutor;
     }
 
     public User() {
@@ -62,6 +64,14 @@ public class User {
         this.university = university;
     }
 
+    public int getIsTutor() {
+        return this.isTutor;
+    }
+
+    public void setIsTutor(int isTutor) {
+        this.isTutor = isTutor;
+    }
+
     /*Other functions*/
 
     public String getFullName() {
@@ -69,3 +79,4 @@ public class User {
         return fullName;
     }
 }
+

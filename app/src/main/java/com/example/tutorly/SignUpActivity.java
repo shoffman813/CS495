@@ -147,7 +147,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void addInformationToUser() {
         String id = databaseUsers.push().getKey(); //ID generated uniquely
 
-        User user = new User(id, firstName, lastName, email, college);
+        User user = new User(id, firstName, lastName, email, college, 0);
 
         databaseUsers.child(id).setValue(user);
     }
