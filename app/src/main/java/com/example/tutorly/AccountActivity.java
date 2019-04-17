@@ -44,6 +44,7 @@ public class AccountActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //Button to logout of app
+                FirebaseAuth.getInstance().signOut();
                 finish();
                 Intent intent = new Intent(AccountActivity.this, LoginActivity.class); //Opens login screen upon start
                 startActivity(intent);
