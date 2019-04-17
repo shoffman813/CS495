@@ -27,9 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editTextLastName;
     private EditText editTextEmail;
     private EditText editTextPassword;
-
     private FirebaseAuth mAuth;
-
     ProgressBar progressBar;
 
     @Override
@@ -104,12 +102,12 @@ public class SignUpActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()) {
                             //user is successfully registered and logged in
+                            SignUpActivity.this.finish();
                             Toast.makeText(SignUpActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class); //start main activity
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                            SignUpActivity.this.finish();
                         }
 
                         else {

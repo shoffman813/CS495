@@ -8,25 +8,31 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
-    public static final String PREFS_NAME = "MyPrefsFile";
+   // public static final String PREFS_NAME = "MyPrefsFile";
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
-        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
+        mAuth = FirebaseAuth.getInstance();
 
-        if(!hasLoggedIn)
+       // SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
+        //boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
+
+       /* if(!hasLoggedIn)
         {
             Intent intent = new Intent(this, LoginActivity.class); //Opens login screen upon start
             startActivity(intent);
             MainActivity.this.finish();
-        }
+        } */
 
         /*Code to add bottom navigation bar to the Main screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -56,5 +62,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(mAuth.getCurrentUser() == null) {
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+        }
     }
 }

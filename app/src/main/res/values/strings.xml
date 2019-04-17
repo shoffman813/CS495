@@ -23,6 +23,8 @@
     <string name ="prompt_bio">Short Bio (Tutoring Experience, etc.)</string>
     <string name ="prompt_pw_short">Password</string>
     <string name="new_to_tutorly"><u>New to Tutorly? Register Here</u></string>
+    <string name="click_to_verify">Email Not Verified (<u>Click to Verify</u>)</string>
+    <string name="verification_email_sent">Verification Email Sent</string>
 
     <string-array name="colleges_array">
         <item>Select One</item>

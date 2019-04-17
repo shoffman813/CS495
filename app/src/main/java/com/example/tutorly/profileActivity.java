@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,9 +37,7 @@ public class profileActivity extends AppCompatActivity {
     ImageView imageView;
     EditText name;
     Uri uriProfileImage;
-
     String profileImageUrl;
-
     FirebaseAuth mAuth;
 
     @Override
@@ -66,6 +65,8 @@ public class profileActivity extends AppCompatActivity {
                 saveUserInformation();
             }
         });
+
+        loadUserInformation();
 
         /*Adds bottom navigation bar to profile screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -97,11 +98,27 @@ public class profileActivity extends AppCompatActivity {
 
     }
 
+    private void loadUserInformation() {
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user != null) {
+            if (user.getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(user.getPhotoUrl().toString())
+                        .into(imageView);
+            }
+            if (user.getDisplayName() != null) {
+                name.setText(user.getDisplayName());
+            }
+        }
+
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
 
         if(requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
@@ -148,14 +165,26 @@ public class profileActivity extends AppCompatActivity {
 
 
     private void uploadImageToFirebaseStorage() {
-        StorageReference profileImageRef = FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis() + ".jpg");
+        final StorageReference profileImageRef = FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis() + ".jpg");
 
         if(uriProfileImage != null) {
             profileImageRef.putFile(uriProfileImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            profileImageUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    profileImageUrl = uri.toString();
+                                    Toast.makeText(getApplicationContext(), "Image Upload Successful", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                         }
                      })
                     .addOnFailureListener(new OnFailureListener() {

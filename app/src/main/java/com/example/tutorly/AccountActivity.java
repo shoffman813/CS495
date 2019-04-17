@@ -1,5 +1,6 @@
 package com.example.tutorly;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,38 +9,48 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /*Class for the account screen*/
 public class AccountActivity extends AppCompatActivity {
 
-    public static final String PREFS_NAME = "MyPrefsFile";
+    FirebaseAuth mAuth;
+    TextView fullNameTextView, verifiedTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        mAuth = FirebaseAuth.getInstance();
+        fullNameTextView = (TextView) findViewById(R.id.full_name_profile);
+        verifiedTextView = (TextView) findViewById(R.id.verified_account);
+
         Button btn = (Button)findViewById(R.id.logout_button);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //Button to login to app
-                SharedPreferences preferences = getSharedPreferences(AccountActivity.PREFS_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.clear();
-                editor.apply();
+            public void onClick(View v) { //Button to logout of app
                 finish();
-
-                Intent intent = new Intent(AccountActivity.this, MainActivity.class); //Opens login screen upon start
+                Intent intent = new Intent(AccountActivity.this, LoginActivity.class); //Opens login screen upon start
                 startActivity(intent);
-                AccountActivity.this.finish();
             }
         });
+
+        loadUserInformation();
 
         /*Creates the bottom navigation toolbar and links to other activities*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -99,5 +110,36 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(toPaymentInfo);
             }
         }); */
+    }
+
+    private void loadUserInformation() {
+
+        final FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user != null) {
+            if (user.getDisplayName() != null) {
+                fullNameTextView.setText(user.getDisplayName());
+            }
+            if(user.isEmailVerified()) {
+                verifiedTextView.setText("Email Verified");
+            } else {
+                SpannableString content = new SpannableString("Email Not Verified (Click to Verify)");
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                verifiedTextView.setText(content);
+                verifiedTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(AccountActivity.this, getString(R.string.verification_email_sent), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+
     }
 }

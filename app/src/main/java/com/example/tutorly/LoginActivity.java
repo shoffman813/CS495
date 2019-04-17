@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String PREFS_NAME = "MyPrefsFile";
+    //public static final String PREFS_NAME = "MyPrefsFile";
 
     FirebaseAuth mAuth;
     EditText editTextEmail;
@@ -62,8 +62,8 @@ public class LoginActivity extends AppCompatActivity {
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //A button to send user to registration screen
-                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                 LoginActivity.this.finish();
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
             }
         });
 
@@ -115,20 +115,23 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful() ) {
                     //User has successfully logged in, save this information
                     // We need an Editor object to make preference changes.
-                    SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0); // 0 - for private mode
+                   /* SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0); // 0 - for private mode
                     SharedPreferences.Editor editor = settings.edit();
 
                     //Set "hasLoggedIn" to true
                     editor.putBoolean("hasLoggedIn", true);
 
                     // Commit the edits!
-                    editor.commit();
+                    editor.commit(); */
+
+                    //Finish login activity
+                    finish();
 
                     //Go to main activity
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    LoginActivity.this.finish();
+                    //LoginActivity.this.finish();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -136,6 +139,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(mAuth.getCurrentUser() != null) {
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
 }
 
