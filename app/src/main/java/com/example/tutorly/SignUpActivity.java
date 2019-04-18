@@ -149,6 +149,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         User user = new User(id, firstName, lastName, email, college, 0);
 
-        databaseUsers.child(id).setValue(user);
+        databaseUsers.child(id).setValue(user); //Sets user info to be a child of the user's unique ID
     }
 }

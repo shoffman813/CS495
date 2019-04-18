@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
@@ -23,12 +24,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /*Class for the account screen*/
 public class AccountActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    TextView fullNameTextView, verifiedTextView;
+    TextView fullNameTextView, verifiedTextView, emailTextView, phoneTextView;
+    DatabaseReference databaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,8 @@ public class AccountActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fullNameTextView = (TextView) findViewById(R.id.full_name_profile);
         verifiedTextView = (TextView) findViewById(R.id.verified_account);
+        emailTextView = (TextView) findViewById(R.id.email_account);
+        phoneTextView = (TextView) findViewById(R.id.phone_number_account);
 
         Button btn = (Button)findViewById(R.id.logout_button);
 
@@ -116,6 +125,8 @@ public class AccountActivity extends AppCompatActivity {
     private void loadUserInformation() {
 
         final FirebaseUser user = mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
         if(user != null) {
             if (user.getDisplayName() != null) {
@@ -139,8 +150,19 @@ public class AccountActivity extends AppCompatActivity {
                     }
                 });
             }
+            databaseUsers.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //User user1 = dataSnapshot.child(user.getUid()).getValue(User.class);
+                    //String email = dataSnapshot.child(user.getUid()).child("email").getValue(String.class);
+                    emailTextView.setText(user.getEmail());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
         }
-
-
     }
 }

@@ -86,12 +86,11 @@
                         android:layout_marginLeft="25dp"
                         android:text="Email (.edu)" />
 
-                    <EditText
-                        android:id="@+id/email_profile"
+                    <TextView
+                        android:id="@+id/email_account"
                         android:layout_width="270dp"
                         android:layout_height="40dp"
-                        android:layout_marginLeft="19dp"
-                        android:inputType="textEmailAddress" />
+                        android:layout_marginLeft="19dp"/>
 
                 </LinearLayout>
 
@@ -110,7 +109,7 @@
                         android:text="Phone Number" />
 
                     <EditText
-                        android:id="@+id/phone_number_profile"
+                        android:id="@+id/phone_number_account"
                         android:layout_width="270dp"
                         android:layout_height="40dp"
                         android:inputType="phone"
