@@ -15,16 +15,23 @@
     </string>
     <string name="profile_str">Profile</string>
     <string name="settings_str">Settings</string>
-    <string name ="home_str">Home</string>
-    <string name = "scheduled_str">Scheduled</string>
-    <string name = "requested_str">Requested</string>
-    <string name ="prompt_first_name">First Name</string>
-    <string name ="prompt_last_name">Last Name</string>
-    <string name ="prompt_bio">Short Bio (Tutoring Experience, etc.)</string>
-    <string name ="prompt_pw_short">Password</string>
+    <string name="home_str">Home</string>
+    <string name="scheduled_str">Scheduled</string>
+    <string name="requested_str">Requested</string>
+    <string name="prompt_first_name">First Name</string>
+    <string name="prompt_last_name">Last Name</string>
+    <string name="prompt_bio">Short Bio (Tutoring Experience, etc.)</string>
+    <string name="prompt_pw_short">Password</string>
     <string name="new_to_tutorly"><u>New to Tutorly? Register Here</u></string>
     <string name="click_to_verify">Email Not Verified (<u>Click to Verify</u>)</string>
     <string name="verification_email_sent">Verification Email Sent</string>
+    <string name="years_of_tutoring_experience">Years of tutoring experience</string>
+    <string name="become_a_tutor">Become a Tutor</string>
+    <string name="brief_description_of_qualifications">Brief description of qualifications</string>
+    <string name="class_code">Class Code</string>
+    <string name="class_number">Class #</string>
+    <string name="add_course">Add Course</string>
+    <string name="classes_you_can_tutor_in">Classes you can tutor in:</string>
 
     <string-array name="colleges_array">
         <item>Select One</item>

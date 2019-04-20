@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
@@ -43,6 +44,17 @@ public class AccountActivity extends AppCompatActivity {
         verifiedTextView = (TextView) findViewById(R.id.verified_account);
         emailTextView = (TextView) findViewById(R.id.email_account);
         phoneTextView = (TextView) findViewById(R.id.phone_number_account);
+
+        Button becomeATutorBtn = (Button) findViewById(R.id.becomeATutorBtn); //Button for user to become a tutor
+
+        becomeATutorBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //When Become a Tutor Button is pressed
+                //add logic: if button pressed & user already tutor, make toast "You are already a tutor"
+                Intent intent = new Intent(AccountActivity.this, TutorSignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button btn = (Button)findViewById(R.id.logout_button); //Button to log out of app
 
