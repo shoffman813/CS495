@@ -8,14 +8,14 @@ import java.util.List;
 /*Holds additional information of Users who are also Tutors*/
 public class Tutor extends User {
 
-    public User user; //Linked to their user class
+    public String uid; //Linked to their user class
     private String shortBio;
     private ArrayList<Course> tutoringClasses; //Classes the Tutor has actually taken
 
-    public Tutor (User user, String shortBio, ArrayList<Course> tutoringClasses) {
+    public Tutor (String uid, String shortBio, ArrayList<Course> tutoringClasses) {
 
         //How to handle user attributes???)
-        this.user = user;
+        this.uid = uid;
         this.shortBio = shortBio;
         this.tutoringClasses = tutoringClasses;
     }
@@ -25,12 +25,12 @@ public class Tutor extends User {
         this.tutoringClasses = new ArrayList<>();
     }
 
-    public User getUserApp() {
-        return this.user;
+    public String getUID() {
+        return this.uid;
     }
 
-    public void setUserApp(User user) {
-        this.user = user;
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 
     public String getShortBio() {

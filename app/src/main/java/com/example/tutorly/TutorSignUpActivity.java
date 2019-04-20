@@ -1,12 +1,22 @@
 package com.example.tutorly;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -18,15 +28,20 @@ public class TutorSignUpActivity extends AppCompatActivity {
     String tutorBio, classTitle, classCode, classNumberString;
     int classNumber;
     Tutor tutor;
-    //Course course;
     ListView classList;
-    ArrayList<String> arrayList;
+    ArrayList<String> arrayList; //Holds course description that tutor enters
     ArrayAdapter<String> arrayAdapter;
+    private FirebaseAuth mAuth;
+    DatabaseReference databaseUsers, databaseTutors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_sign_up);
+
+        mAuth = FirebaseAuth.getInstance();
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users"); //reference to user database
+        databaseTutors = FirebaseDatabase.getInstance().getReference("tutors"); //reference to tutor database
 
         tutorBioEditText = (EditText) findViewById(R.id.short_tutor_bio);
         classTitleEditText = (EditText) findViewById(R.id.course_title);
@@ -40,7 +55,6 @@ public class TutorSignUpActivity extends AppCompatActivity {
         classList.setAdapter(arrayAdapter);
 
         addCourseBtn = (Button)findViewById(R.id.AddCourseBtn); //Button to add a course to list
-
         addCourseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //When tutor clicks button to sign up
@@ -48,14 +62,54 @@ public class TutorSignUpActivity extends AppCompatActivity {
             }
         });
 
-        registerTutorBtn = (Button) findViewById(R.id.RegisterTutorBtn);
+        //Add onitemclicklistener so if tutor clicks a list item, it is deleted
+        //from the Tutor object and the listView screen
+        //Also add transparent X to listview item
 
+        registerTutorBtn = (Button) findViewById(R.id.RegisterTutorBtn);
         registerTutorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //registerTutor();
+                registerTutor();
             }
         });
+    }
+
+    private void registerTutor() {
+        tutorBio = tutorBioEditText.getText().toString().trim(); //Saving tutor bio to string
+
+        /*Validating information*/
+        if(tutorBio.isEmpty()) { //No bio has been entered
+            tutorBioEditText.setError("Field is required");
+            tutorBioEditText.requestFocus();
+            return;
+        }
+
+        if(arrayList.isEmpty()) { //No courses have been entered
+            classTitleEditText.setError("You must enter at least one class");
+            classTitleEditText.requestFocus();
+            return;
+        }
+
+        tutor.setShortBio(tutorBio); //Saving description to tutor object
+
+        FirebaseUser fUser = mAuth.getCurrentUser(); //Getting current user
+        String currentUID = fUser.getUid(); //Getting user uid
+
+        tutor.setUID(currentUID);
+        //tutor.setFirstName(databaseUsers.child(currentUID).child("firstName").getValue());
+
+        databaseTutors.child(currentUID).setValue(tutor); //Saving tutor to database under FireBase uid
+
+        databaseUsers.child(currentUID).child("isTutor").setValue(1); //Changing isTutor value for user to 1
+
+        Toast.makeText(TutorSignUpActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+
+        TutorSignUpActivity.this.finish(); //So user cannot return to sign up screen
+        Intent intent = new Intent(TutorSignUpActivity.this, AccountActivity.class); //start account activity
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent); //Open the account screen, user is now registered as a tutor
     }
 
     /*Adds a course to a tutor's list of courses and displays in a list on the registration screen*/

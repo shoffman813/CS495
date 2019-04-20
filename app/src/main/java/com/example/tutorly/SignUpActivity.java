@@ -1,6 +1,7 @@
 package com.example.tutorly;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,7 +61,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { //When user clicks button to sign up
                 registerUser(); //Register the user
-                addInformationToUser();
             }
         });
 
@@ -127,10 +127,11 @@ public class SignUpActivity extends AppCompatActivity {
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class); //start main activity
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                            FirebaseUser fUser = mAuth.getCurrentUser(); //Saving unique UID to user
-                            user.setUID(fUser.getUid()); //Getting the FireBase uid
+                            FirebaseUser fUser = mAuth.getCurrentUser(); //Saving unique UID to use
 
-                            databaseUsers.child(id).child("uid").setValue(user.getUID()); //saving unique firebase uid to the user class
+                            id = databaseUsers.push().getKey(); //ID generated uniquely
+                            user = new User(id, firstName, lastName, email, college, 0, 0, fUser.getUid()); //Create new instance of user class
+                            databaseUsers.child(fUser.getUid()).setValue(user); //Sets user info to be a child of the user's FireBase id
 
                             startActivity(intent); //Open the main screen, user is registered and logged in
                         }
@@ -146,14 +147,5 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-    /*Adding a unique app-level user ID that the information is stored under in FireBase*/
-    private void addInformationToUser() {
-        id = databaseUsers.push().getKey(); //ID generated uniquely
-
-        user = new User(id, firstName, lastName, email, college, 0, 0, ""); //Create new instance of user class
-
-        databaseUsers.child(id).setValue(user); //Sets user info to be a child of the user's unique ID
     }
 }
