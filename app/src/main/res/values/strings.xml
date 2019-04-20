@@ -32,6 +32,9 @@
     <string name="class_number">Class #</string>
     <string name="add_course">Add Course</string>
     <string name="classes_you_can_tutor_in">Classes you can tutor in:</string>
+    <string name="course_title">Course Title</string>
+    <string name="class_title">Class Title</string>
+    <string name="add_class">Add Class</string>
 
     <string-array name="colleges_array">
         <item>Select One</item>

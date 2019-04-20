@@ -11,7 +11,6 @@ public class Tutor extends User {
     public User user; //Linked to their user class
     private String shortBio;
     private List<String> tutoringClasses; //Classes the Tutor has actually taken
-    private int yearsExperience; //Years of tutoring experience
 
     public Tutor (User user, String shortBio, List<String> tutoringClasses, int yearsExperience) {
 
@@ -19,7 +18,6 @@ public class Tutor extends User {
         this.user = user;
         this.shortBio = shortBio;
         this.tutoringClasses = new ArrayList<String>();
-        this.yearsExperience = yearsExperience;
     }
 
     public Tutor () {
@@ -52,13 +50,5 @@ public class Tutor extends User {
 
     public void removeClass(String oldClass) {
         this.tutoringClasses.remove(oldClass);
-    }
-
-    public int getYearsExperience() {
-        return this.yearsExperience;
-    }
-
-    public void setYearsExperience(int yearsExperience) {
-        this.yearsExperience = yearsExperience;
     }
 }
