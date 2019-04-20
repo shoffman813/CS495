@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,8 +37,10 @@ public class SignUpActivity extends AppCompatActivity {
     ProgressBar progressBar;
     DatabaseReference databaseUsers;
 
+    User user;
+
     String firstName, lastName, email;
-    String college;
+    String college, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +126,17 @@ public class SignUpActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()) {
                             //user is successfully registered and logged in
-                            SignUpActivity.this.finish();
                             Toast.makeText(SignUpActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
 
+                            SignUpActivity.this.finish();
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class); //start main activity
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                            FirebaseUser fUser = mAuth.getCurrentUser(); //Saving unique UID to user
+                            user.setUID(fUser.getUid());
+
+                            databaseUsers.child(id).child("uid").setValue(user.getUID());
+
                             startActivity(intent);
                         }
 
@@ -145,9 +154,12 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void addInformationToUser() {
-        String id = databaseUsers.push().getKey(); //ID generated uniquely
+        id = databaseUsers.push().getKey(); //ID generated uniquely
 
-        User user = new User(id, firstName, lastName, email, college, 0);
+        //FirebaseUser fUser = mAuth.getCurrentUser();
+        //String id = fUser.getUid();
+
+        user = new User(id, firstName, lastName, email, college, 0, "");
 
         databaseUsers.child(id).setValue(user); //Sets user info to be a child of the user's unique ID
     }

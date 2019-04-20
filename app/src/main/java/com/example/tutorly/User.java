@@ -8,15 +8,17 @@ public class User {
     private String email; //Primary key
     private String university;
     private int isTutor; //Initially set to zero upon sign up
+    private String uid;
 
     /*Class constructor*/
-    public User(String userID, String firstName, String lastName, String email, String university, int isTutor) {
+    public User(String userID, String firstName, String lastName, String email, String university, int isTutor, String uid) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.university = university;
         this.isTutor = isTutor;
+        this.uid = uid; //ID in firebase
     }
 
     public User() {
@@ -70,6 +72,14 @@ public class User {
 
     public void setIsTutor(int isTutor) {
         this.isTutor = isTutor;
+    }
+
+    public String getUID() {
+        return this.uid;
+    }
+
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 
     /*Other functions*/

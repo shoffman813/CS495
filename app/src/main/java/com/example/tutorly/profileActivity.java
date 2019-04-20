@@ -39,6 +39,7 @@ public class profileActivity extends AppCompatActivity {
     Uri uriProfileImage;
     String profileImageUrl;
     FirebaseAuth mAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class profileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         name = (EditText) findViewById(R.id.editTextName);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -56,6 +58,8 @@ public class profileActivity extends AppCompatActivity {
                 showImageChooser();
             }
         });
+
+        name.setText(user.getDisplayName());
 
         Button btn = (Button)findViewById(R.id.save_profile_button);
 
@@ -100,7 +104,7 @@ public class profileActivity extends AppCompatActivity {
 
     private void loadUserInformation() {
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         if(user != null) {
             if (user.getPhotoUrl() != null) {
@@ -139,13 +143,13 @@ public class profileActivity extends AppCompatActivity {
     private void saveUserInformation() {
         String displayName = name.getText().toString();
 
+        user = mAuth.getCurrentUser();
+
         if(displayName.isEmpty()) {
             name.setError("Name required");
             name.requestFocus();
             return;
         }
-
-        FirebaseUser user = mAuth.getCurrentUser();
 
         if(user != null && profileImageUrl != null) {
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
