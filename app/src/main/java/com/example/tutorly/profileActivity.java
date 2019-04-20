@@ -2,7 +2,6 @@ package com.example.tutorly;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -31,11 +30,13 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
+/*The profile screen for a user*/
 public class profileActivity extends AppCompatActivity {
 
+    /*Variable Declarations*/
     private static final int CHOOSE_IMAGE = 101;
-    ImageView imageView;
-    EditText name;
+    ImageView imageView; //Where user profile picture is displayed
+    EditText name; //Where user name is displayed
     Uri uriProfileImage;
     String profileImageUrl;
     FirebaseAuth mAuth;
@@ -49,28 +50,26 @@ public class profileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        name = (EditText) findViewById(R.id.editTextName);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        name = (EditText) findViewById(R.id.editTextName); //EditText box for user's name
+        imageView = (ImageView) findViewById(R.id.imageView); //ImageView for user's profile picture
 
-        imageView.setOnClickListener(new View.OnClickListener() { //When image is clicked on
+        imageView.setOnClickListener(new View.OnClickListener() { //When profile picture is clicked on
             @Override
             public void onClick (View v) {
-                showImageChooser();
+                showImageChooser(); //Show the phone's image selection screen
             }
         });
 
-        name.setText(user.getDisplayName());
-
-        Button btn = (Button)findViewById(R.id.save_profile_button);
+        Button btn = (Button)findViewById(R.id.save_profile_button); //Button to save profile information
 
         btn.setOnClickListener(new View.OnClickListener() { //When save button is pressed
             @Override
-            public void onClick(View v) { //Button to save profile information
-                saveUserInformation();
+            public void onClick(View v) {
+                saveUserInformation(); //Save the user's information
             }
         });
 
-        loadUserInformation();
+        loadUserInformation(); //Load a user's information from FireBase
 
         /*Adds bottom navigation bar to profile screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -102,18 +101,19 @@ public class profileActivity extends AppCompatActivity {
 
     }
 
+    /*Loads a user's information from FireBase to the Profile Activity*/
     private void loadUserInformation() {
 
-        user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser(); //get the FireBase user
 
         if(user != null) {
-            if (user.getPhotoUrl() != null) {
+            if (user.getPhotoUrl() != null) { //If user exists and they have a profile image
                 Glide.with(this)
                         .load(user.getPhotoUrl().toString())
-                        .into(imageView);
+                        .into(imageView); //Load the profile image to the ImageView
             }
-            if (user.getDisplayName() != null) {
-                name.setText(user.getDisplayName());
+            if (user.getDisplayName() != null) { //If user exists and they have a display name
+                name.setText(user.getDisplayName()); //Load the display name to the text box
             }
         }
 
@@ -132,7 +132,7 @@ public class profileActivity extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 imageView.setImageBitmap(bitmap);
 
-                uploadImageToFirebaseStorage();
+                uploadImageToFirebaseStorage(); //Uploads the profile image to the database
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -140,26 +140,27 @@ public class profileActivity extends AppCompatActivity {
         }
     }
 
+    /*Saves a user's information to FireBase*/
     private void saveUserInformation() {
         String displayName = name.getText().toString();
 
         user = mAuth.getCurrentUser();
 
-        if(displayName.isEmpty()) {
+        if(displayName.isEmpty()) { //If no name is entered, require a name
             name.setError("Name required");
             name.requestFocus();
             return;
         }
 
-        if(user != null && profileImageUrl != null) {
+        if(user != null && profileImageUrl != null) { //If both fields have information
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayName)
                     .setPhotoUri(Uri.parse(profileImageUrl))
-                    .build();
+                    .build(); //Change the information in FireBase
             user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()) {
+                    if(task.isSuccessful()) { //When profile information is updated
                         Toast.makeText(profileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -167,23 +168,23 @@ public class profileActivity extends AppCompatActivity {
         }
     }
 
-
+/*Uploads an image to FireBase storage*/
     private void uploadImageToFirebaseStorage() {
-        final StorageReference profileImageRef = FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis() + ".jpg");
+        final StorageReference profileImageRef = FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis() + ".jpg"); //location of storage
 
-        if(uriProfileImage != null) {
+        if(uriProfileImage != null) { //If profile image exists
             profileImageRef.putFile(uriProfileImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void onSuccess(Uri uri) {
+                                public void onSuccess(Uri uri) { //If image is successfully uploaded
                                     profileImageUrl = uri.toString();
                                     Toast.makeText(getApplicationContext(), "Image Upload Successful", Toast.LENGTH_SHORT).show();
                                 }
                             })
-                                    .addOnFailureListener(new OnFailureListener() {
+                                    .addOnFailureListener(new OnFailureListener() { //If image cannot be uploaded
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -191,7 +192,7 @@ public class profileActivity extends AppCompatActivity {
                                     });
                         }
                      })
-                    .addOnFailureListener(new OnFailureListener() {
+                    .addOnFailureListener(new OnFailureListener() { //If image cannot be uploaded
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(profileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -200,10 +201,10 @@ public class profileActivity extends AppCompatActivity {
         }
     }
 
-    private void showImageChooser() {
+    private void showImageChooser() { //Opens the image selection screen
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE); //opens image selector activity
     }
 }

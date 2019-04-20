@@ -7,14 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/*Saves a user's credit card information*/
 public class PaymentInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_info);
-
-
 
         Button submit = (Button)findViewById(R.id.button6); //Lets user add card number to payment info
         submit.setOnClickListener(new View.OnClickListener() {

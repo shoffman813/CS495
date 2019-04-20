@@ -1,6 +1,5 @@
 package com.example.tutorly;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,20 +25,19 @@ import com.google.firebase.database.FirebaseDatabase;
 /*The sign up screen for a new user*/
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText editTextFirstName;
-    EditText editTextLastName;
-    private EditText editTextEmail;
-    private EditText editTextPassword;
+    /*Variable Declarations*/
+    EditText editTextFirstName; //Where user enters first name
+    EditText editTextLastName; //Where user enters last name
+    private EditText editTextEmail; //Where user enters email
+    private EditText editTextPassword; //Where user enters password
     private FirebaseAuth mAuth;
-    Spinner collegeSpinner;
-    Button btn;
+    Spinner collegeSpinner; //Where user selects college
+    Button btn; //button to submit registration
     ProgressBar progressBar;
     DatabaseReference databaseUsers;
 
     User user;
-
-    String firstName, lastName, email;
-    String college, id;
+    String firstName, lastName, email, college, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +45,9 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
-        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users"); //reference to user database
 
+        /*Assigning information variables to display fields*/
         editTextFirstName = (EditText) findViewById(R.id.first_name_register);
         editTextLastName = (EditText) findViewById(R.id.last_name_register);
         collegeSpinner = (Spinner) findViewById(R.id.colleges_spinner);
@@ -60,8 +58,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //A button to view the session history screen
-                registerUser();
+            public void onClick(View v) { //When user clicks button to sign up
+                registerUser(); //Register the user
                 addInformationToUser();
             }
         });
@@ -69,7 +67,9 @@ public class SignUpActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
+    /*Registers a user with FireBase*/
     private void registerUser() {
+        /*Saving all information to strings*/
         email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         firstName = editTextFirstName.getText().toString().trim();
@@ -78,69 +78,64 @@ public class SignUpActivity extends AppCompatActivity {
 
         //Validating email and password
 
-        if(email.isEmpty()) {
-            //email is empty
-            //Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+        if(email.isEmpty()) { //Email field is empty
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) { //If entered email is a real email
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) { //If entered email is not a real email
             editTextEmail.setError("Please enter valid email");
             editTextEmail.requestFocus();
             return;
         }
 
-        if(TextUtils.isEmpty(password)) {
-            //password is empty
-            //Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
+        if(TextUtils.isEmpty(password)) {  //Password field is empty
             editTextPassword.setError("Password is required");
             editTextPassword.requestFocus();
             return;
         }
 
-        if(password.length() < 6) {
+        if(password.length() < 6) { //Password is shorter than 6 characters
             editTextPassword.setError("Minimum length of password is 6 characters");
             editTextPassword.requestFocus();
             return;
         }
 
-        if(TextUtils.isEmpty(firstName)) {
+        if(TextUtils.isEmpty(firstName)) { //First name field is empty
             Toast.makeText(this, "You must enter your full name", Toast.LENGTH_SHORT).show();
         }
 
-        if(TextUtils.isEmpty(lastName)) {
+        if(TextUtils.isEmpty(lastName)) { //Last name field is empty
             Toast.makeText(this, "You must enter your full name", Toast.LENGTH_SHORT).show();
         }
 
-        //All validations are passed
+        /*All validations are passed*/
 
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE); //Show the loading wheel
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        progressBar.setVisibility(View.GONE);
-                        if(task.isSuccessful()) {
-                            //user is successfully registered and logged in
+                        progressBar.setVisibility(View.GONE); //Upon completion of task, hide the loading wheel
+                        if(task.isSuccessful()) { //user is successfully registered and logged in
                             Toast.makeText(SignUpActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
 
-                            SignUpActivity.this.finish();
+                            SignUpActivity.this.finish(); //So user cannot return to sign in screen
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class); //start main activity
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                             FirebaseUser fUser = mAuth.getCurrentUser(); //Saving unique UID to user
-                            user.setUID(fUser.getUid());
+                            user.setUID(fUser.getUid()); //Getting the FireBase uid
 
-                            databaseUsers.child(id).child("uid").setValue(user.getUID());
+                            databaseUsers.child(id).child("uid").setValue(user.getUID()); //saving unique firebase uid to the user class
 
-                            startActivity(intent);
+                            startActivity(intent); //Open the main screen, user is registered and logged in
                         }
 
-                        else {
+                        else { //User account could not be created
                             if(task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
                             }
@@ -153,13 +148,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+    /*Adding a unique app-level user ID that the information is stored under in FireBase*/
     private void addInformationToUser() {
         id = databaseUsers.push().getKey(); //ID generated uniquely
 
-        //FirebaseUser fUser = mAuth.getCurrentUser();
-        //String id = fUser.getUid();
-
-        user = new User(id, firstName, lastName, email, college, 0, "");
+        user = new User(id, firstName, lastName, email, college, 0, 0, ""); //Create new instance of user class
 
         databaseUsers.child(id).setValue(user); //Sets user info to be a child of the user's unique ID
     }

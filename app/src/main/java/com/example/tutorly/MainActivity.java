@@ -1,7 +1,6 @@
 package com.example.tutorly;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,10 +9,10 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/*The home search screen for user to find a tutor*/
 public class MainActivity extends AppCompatActivity {
 
-   // public static final String PREFS_NAME = "MyPrefsFile";
-
+    /*Variable Declarations*/
     FirebaseAuth mAuth;
 
     @Override
@@ -22,17 +21,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-
-       // SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
-        //boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
-
-       /* if(!hasLoggedIn)
-        {
-            Intent intent = new Intent(this, LoginActivity.class); //Opens login screen upon start
-            startActivity(intent);
-            MainActivity.this.finish();
-        } */
 
         /*Code to add bottom navigation bar to the Main screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -64,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*Overriding onStart to send user to login screen if not logged in*/
     @Override
     protected void onStart() {
         super.onStart();

@@ -5,10 +5,11 @@ import com.example.tutorly.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Holds additional information of Users who are also Tutors*/
 public class Tutor extends User {
 
-    private List<String> tutoringClasses;
-    private int yearsExperience;
+    private List<String> tutoringClasses; //Classes the Tutor has actually taken
+    private int yearsExperience; //Years of tutoring experience
 
     public Tutor (User user, List<String> tutoringClasses, int yearsExperience) {
 
@@ -19,7 +20,7 @@ public class Tutor extends User {
     }
 
     public Tutor () {
-
+        //empty constructor
     }
 
     public List<String> getClassList() {

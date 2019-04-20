@@ -1,25 +1,18 @@
 package com.example.tutorly;
 
-import android.accounts.Account;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 /*Class for the account screen*/
 public class AccountActivity extends AppCompatActivity {
 
+    /*Variable Declarations*/
     FirebaseAuth mAuth;
     TextView fullNameTextView, verifiedTextView, emailTextView, phoneTextView;
     DatabaseReference databaseUsers;
@@ -43,24 +37,26 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
         mAuth = FirebaseAuth.getInstance();
+
+        /*Assigning TextView fields to their variables*/
         fullNameTextView = (TextView) findViewById(R.id.full_name_profile);
         verifiedTextView = (TextView) findViewById(R.id.verified_account);
         emailTextView = (TextView) findViewById(R.id.email_account);
         phoneTextView = (TextView) findViewById(R.id.phone_number_account);
 
-        Button btn = (Button)findViewById(R.id.logout_button);
+        Button btn = (Button)findViewById(R.id.logout_button); //Button to log out of app
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //Button to logout of app
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                Intent intent = new Intent(AccountActivity.this, LoginActivity.class); //Opens login screen upon start
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut(); //Signs out FireBase user
+                AccountActivity.this.finish();
+                Intent intent = new Intent(AccountActivity.this, LoginActivity.class); //Opens login screen
                 startActivity(intent);
             }
         });
 
-        loadUserInformation();
+        loadUserInformation(); //Loads and displays the user's information
 
         /*Creates the bottom navigation toolbar and links to other activities*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -90,58 +86,44 @@ public class AccountActivity extends AppCompatActivity {
                     }
                 });
 
-
-
+        //???
         if(getIntent().hasExtra("com.example.tutorly.cardNum")){
             TextView tv =(TextView) findViewById(R.id.PaymentInfo);
             String cardnum = getIntent().getExtras().getString("com.example.tutorly.cardNum");
             tv.setText(cardnum);
         }
 
-       /* Button submit = (Button)findViewById(R.id.button4); //Saves information to account screen
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText firstName = (EditText) findViewById(R.id.enterFirstName);
-                String text1 = firstName.getText().toString(); //Saving entered account info
-                EditText lastName = (EditText) findViewById(R.id.enterLastName);
-                String text2 = lastName.getText().toString(); //Saving entered account info
-                Intent toProf = new Intent(getApplicationContext(), profileActivity.class);
-                toProf.putExtra("com.example.tutorly.cardNum", text1);
-                startActivity(toProf); //Opens profile to display saved account information
-            }
-        });
-
-        Button payInfo = (Button)findViewById(R.id.saveBtn); //Opens the new Payment Information activity screen
-        submit.setOnClickListener(new View.OnClickListener() {
+        Button payInfo = (Button)findViewById(R.id.creditCardInfoBtn); //Opens the PaymentInfoActivity screen
+        payInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent toPaymentInfo = new Intent(getApplicationContext(), PaymentInfoActivity.class);
-                startActivity(toPaymentInfo);
+                startActivity(toPaymentInfo); //Opens PaymentInfoActivity
             }
-        }); */
+        });
     }
 
+    /*Loads user information from FireBase to AccountActivity screen*/
     private void loadUserInformation() {
 
         final FirebaseUser user = mAuth.getCurrentUser();
         mAuth = FirebaseAuth.getInstance();
-        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users"); //Creating reference to users database
 
         if(user != null) {
             if (user.getDisplayName() != null) {
-                fullNameTextView.setText(user.getDisplayName());
+                fullNameTextView.setText(user.getDisplayName()); //If user exists and has name, display it
             }
             if(user.isEmailVerified()) {
-                verifiedTextView.setText("Email Verified");
+                verifiedTextView.setText("Email Verified"); //If a user has verified their email
             } else {
                 SpannableString content = new SpannableString("Email Not Verified (Click to Verify)");
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 verifiedTextView.setText(content);
                 verifiedTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onClick(View v) { //If a user clicks to verify their email
+                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() { //Send email verification
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(AccountActivity.this, getString(R.string.verification_email_sent), Toast.LENGTH_SHORT).show();
@@ -150,16 +132,14 @@ public class AccountActivity extends AppCompatActivity {
                     }
                 });
             }
-            databaseUsers.addValueEventListener(new ValueEventListener() {
+            databaseUsers.addValueEventListener(new ValueEventListener() { //Displaying a user's email
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    //User user1 = dataSnapshot.child(user.getUid()).getValue(User.class);
-                    //String email = dataSnapshot.child(user.getUid()).child("email").getValue(String.class);
+                public void onDataChange(DataSnapshot dataSnapshot) { //Display email from FireBase user field
                     emailTextView.setText(user.getEmail());
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(DatabaseError databaseError) { //No email found
                     System.out.println("The read failed: " + databaseError.getCode());
                 }
             });

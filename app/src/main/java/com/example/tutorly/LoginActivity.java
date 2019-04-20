@@ -1,7 +1,6 @@
 package com.example.tutorly;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,24 +13,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-/**
- * A login screen that offers login via email/password. test
- */
+/*Screen where the user can login to app*/
 public class LoginActivity extends AppCompatActivity {
 
-    //public static final String PREFS_NAME = "MyPrefsFile";
-
+    /*Variable Declarations*/
     FirebaseAuth mAuth;
     EditText editTextEmail;
     EditText editTextPassword;
@@ -44,16 +35,17 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        /*Connecting EditText variables to screen text boxes*/
         editTextEmail = (EditText) findViewById(R.id.email_login);
         editTextPassword = (EditText) findViewById(R.id.password_login);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        Button btn = (Button)findViewById(R.id.login_button);
+        Button btn = (Button)findViewById(R.id.login_button); //Button to log in user
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //Button to login to app
-                userLogin();
+                userLogin(); //Verifies user credentials and logs in user
             }
         });
 
@@ -63,22 +55,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { //A button to send user to registration screen
                 LoginActivity.this.finish();
-                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class)); //Opens SignUpActivity
             }
         });
 
     }
 
+    /*Verifies user credentials and logs in user*/
     private void userLogin() {
 
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        //Validating email and password
+        /*Validating email and password*/
 
-        if(email.isEmpty()) {
-            //email is empty
-            //Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+        if(email.isEmpty()) { //Email field is empty
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
             return;
@@ -90,50 +81,34 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if(TextUtils.isEmpty(password)) {
-            //password is empty
-            //Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
+        if(TextUtils.isEmpty(password)) { //Password field is empty
             editTextPassword.setError("Password is required");
             editTextPassword.requestFocus();
             return;
         }
 
-        if(password.length() < 6) {
+        if(password.length() < 6) { //Password entered is less than 6 characters
             editTextPassword.setError("Minimum length of password is 6 characters");
             editTextPassword.requestFocus();
             return;
         }
 
-        //All validations are passed
+        /*All validations are passed*/
 
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE); //Show the loading wheel while verifying user credentials
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE); //Upon completion of verification, hide loading wheel
                 if(task.isSuccessful() ) {
-                    //User has successfully logged in, save this information
-                    // We need an Editor object to make preference changes.
-                   /* SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0); // 0 - for private mode
-                    SharedPreferences.Editor editor = settings.edit();
+                    finish(); //So user can't return to login screen after logging in
 
-                    //Set "hasLoggedIn" to true
-                    editor.putBoolean("hasLoggedIn", true);
-
-                    // Commit the edits!
-                    editor.commit(); */
-
-                    //Finish login activity
-                    finish();
-
-                    //Go to main activity
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    //LoginActivity.this.finish();
+                    startActivity(intent); //Open MainActivity
                 }
-                else {
+                else { //Login Failed
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -141,13 +116,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /*Overriding onStart to go to MainActivity if user is already logged in*/
     @Override
     protected void onStart() {
         super.onStart();
 
-        if(mAuth.getCurrentUser() != null) {
+        if(mAuth.getCurrentUser() != null) { //If user is already logged in
             finish();
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class)); //Go to MainActivity
         }
     }
 }

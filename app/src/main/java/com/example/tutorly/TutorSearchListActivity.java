@@ -3,7 +3,7 @@ package com.example.tutorly;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-/*The screen to hold the tutor search list*/
+/*The screen to hold the list of tutor search results*/
 public class TutorSearchListActivity extends AppCompatActivity {
 
     @Override
