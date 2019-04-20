@@ -10,18 +10,19 @@ public class Tutor extends User {
 
     public User user; //Linked to their user class
     private String shortBio;
-    private List<String> tutoringClasses; //Classes the Tutor has actually taken
+    private ArrayList<Course> tutoringClasses; //Classes the Tutor has actually taken
 
-    public Tutor (User user, String shortBio, List<String> tutoringClasses, int yearsExperience) {
+    public Tutor (User user, String shortBio, ArrayList<Course> tutoringClasses) {
 
         //How to handle user attributes???)
         this.user = user;
         this.shortBio = shortBio;
-        this.tutoringClasses = new ArrayList<String>();
+        this.tutoringClasses = tutoringClasses;
     }
 
     public Tutor () {
         //empty constructor
+        this.tutoringClasses = new ArrayList<>();
     }
 
     public User getUserApp() {
@@ -40,15 +41,15 @@ public class Tutor extends User {
         this.shortBio = shortBio;
     }
 
-    public List<String> getClassList() {
+    public ArrayList<Course> getClassList() {
         return this.tutoringClasses;
     }
 
-    public void addClass(String newClass) {
+    public void addClass(Course newClass) {
         this.tutoringClasses.add(newClass);
     }
 
-    public void removeClass(String oldClass) {
+    public void removeClass(Course oldClass) {
         this.tutoringClasses.remove(oldClass);
     }
 }

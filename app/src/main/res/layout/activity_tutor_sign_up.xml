@@ -92,7 +92,7 @@
                 android:layout_marginTop="5dp">
 
                 <EditText
-                    android:id="@+id/class_letters"
+                    android:id="@+id/class_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:ignore="Autofill"
