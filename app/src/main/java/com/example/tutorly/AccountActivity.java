@@ -1,6 +1,7 @@
 package com.example.tutorly;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -123,8 +126,20 @@ public class AccountActivity extends AppCompatActivity {
         databaseUsers = FirebaseDatabase.getInstance().getReference("users"); //Creating reference to users database
 
         if(user != null) {
-            if (user.getDisplayName() != null) {
+            if (user.getDisplayName() != null) { //If user display name has name, display it
                 fullNameTextView.setText(user.getDisplayName()); //If user exists and has name, display it
+            }
+
+            if (user.getDisplayName() == null) { //If displayName is null, retrieve name from database
+                databaseUsers.child(user.getUid()).child("fullName").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        fullNameTextView.setText(snapshot.getValue().toString());
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
             }
             if(user.isEmailVerified()) {
                 verifiedTextView.setText("Email Verified"); //If a user has verified their email

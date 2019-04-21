@@ -11,33 +11,78 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:text="Tutorly"
-            android:textSize="45sp"
-            app:fontFamily="sans-serif-black" />
-
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="272dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="150dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Search for Tutors" />
-
-        <Button
-            android:id="@+id/SearchBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Search"
-            android:layout_gravity="center" />
+            android:text=" Search for Tutors"
+            android:layout_marginTop="130dp"
+            android:layout_gravity="center"
+            android:textSize="30sp"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:baselineAligned="false">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/class_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="Autofill"
+                    android:hint="@string/class_code"
+                    android:inputType="textCapCharacters"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/class_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="Autofill"
+                    android:hint="@string/class_number"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp">
+
+                <Button
+                    android:id="@+id/AddCourseBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:text="@string/search" />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/AdvSearchBtn"

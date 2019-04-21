@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -36,11 +42,13 @@ public class profileActivity extends AppCompatActivity {
     /*Variable Declarations*/
     private static final int CHOOSE_IMAGE = 101;
     ImageView imageView; //Where user profile picture is displayed
-    EditText name; //Where user name is displayed
+    EditText name, university; //Where user name is displayed
     Uri uriProfileImage;
     String profileImageUrl;
     FirebaseAuth mAuth;
     FirebaseUser user;
+    DatabaseReference databaseUsers;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +58,11 @@ public class profileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users"); //reference to user database
+
         name = (EditText) findViewById(R.id.editTextName); //EditText box for user's name
         imageView = (ImageView) findViewById(R.id.imageView); //ImageView for user's profile picture
+        university = (EditText) findViewById(R.id.editTextUniversity);
 
         imageView.setOnClickListener(new View.OnClickListener() { //When profile picture is clicked on
             @Override
@@ -116,8 +127,6 @@ public class profileActivity extends AppCompatActivity {
                 name.setText(user.getDisplayName()); //Load the display name to the text box
             }
         }
-
-
     }
 
     @Override
@@ -206,5 +215,24 @@ public class profileActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE); //opens image selector activity
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (user.getDisplayName() == null) {
+            databaseUsers.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    name.setText(snapshot.child("fullName").getValue().toString());
+                    university.setText(snapshot.child("university").getValue().toString());
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
     }
 }
