@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
     /*Variable Declarations*/
     FirebaseAuth mAuth;
+    EditText classCodeEditText, classNumberEditText;
+    Button searchBtn;
+    String classCode, classNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
+        classCodeEditText = (EditText) findViewById(R.id.class_number_main);
+        classNumberEditText = (EditText) findViewById(R.id.class_number_main);
+        searchBtn = (Button) findViewById(R.id.searchTutorsBtn);
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //pass data to TutorSearchListActivity
+                Intent intent = new Intent(MainActivity.this, TutorSearchListActivity.class); //start search list activity
+                intent.putExtra("class_code", classCode);
+                intent.putExtra("class_number", classNumber);
+                startActivity(intent);
+            }
+        });
 
         /*Code to add bottom navigation bar to the Main screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
