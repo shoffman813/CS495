@@ -32,6 +32,7 @@ public class AccountActivity extends AppCompatActivity {
 
     /*Variable Declarations*/
     FirebaseAuth mAuth;
+    FirebaseUser fUser;
     TextView fullNameTextView, verifiedTextView, emailTextView, phoneTextView;
     DatabaseReference databaseUsers;
 
@@ -41,6 +42,7 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
         mAuth = FirebaseAuth.getInstance();
+        fUser =  fUser = mAuth.getCurrentUser();
 
         /*Assigning TextView fields to their variables*/
         fullNameTextView = (TextView) findViewById(R.id.full_name_profile);
@@ -54,8 +56,13 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { //When Become a Tutor Button is pressed
                 //add logic: if button pressed & user already tutor, make toast "You are already a tutor"
-                Intent intent = new Intent(AccountActivity.this, TutorSignUpActivity.class);
-                startActivity(intent);
+                if(fUser.getDisplayName() == null) {
+                    Toast.makeText(AccountActivity.this, "You must fill out profile information before becoming a Tutor!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(AccountActivity.this, TutorSignUpActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

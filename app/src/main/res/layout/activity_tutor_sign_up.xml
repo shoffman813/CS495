@@ -38,6 +38,24 @@
             android:layout_marginTop="5dp">
 
             <EditText
+                android:id="@+id/pay_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="Autofill"
+                android:hint="@string/pay_rate_per_hour"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:singleLine="true"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp">
+
+            <EditText
                 android:id="@+id/short_tutor_bio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

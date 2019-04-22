@@ -35,9 +35,9 @@ public class TutorAdapter extends RecyclerView.Adapter<TutorAdapter.TutorViewHol
     public void onBindViewHolder(@NonNull TutorViewHolder tutorViewHolder, int i) { //Binds data to view holder
         Tutor tutor = tutorList.get(i);
 
-        tutorViewHolder.textViewFullName.setText(tutor.getFullName());
+        tutorViewHolder.textViewFullName.setText(tutor.name);
         tutorViewHolder.textViewBio.setText(tutor.getShortBio());
-        tutorViewHolder.textViewRate.setText("$20.00/hr"); //Come back later and change, add to Tutor class
+        tutorViewHolder.textViewRate.setText(tutor.getPayRate()); //Come back later and change, add to Tutor class
 
         //holder.imageView.setImageDrawable(mCtx.getResources().getDrawable()); have to populate from tutor profile image
     }

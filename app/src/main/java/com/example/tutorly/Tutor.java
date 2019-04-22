@@ -9,13 +9,17 @@ import java.util.List;
 public class Tutor extends User {
 
     public String uid; //Linked to their user class
+    public String name;
+    private String payRate;
     private String shortBio;
     private ArrayList<Course> tutoringClasses; //Classes the Tutor has actually taken
 
-    public Tutor (String uid, String shortBio, ArrayList<Course> tutoringClasses) {
+    public Tutor (String uid, String name, String payRate, String shortBio, ArrayList<Course> tutoringClasses) {
 
         //How to handle user attributes???)
         this.uid = uid;
+        this.name = name;
+        this.payRate = payRate;
         this.shortBio = shortBio;
         this.tutoringClasses = tutoringClasses;
     }
@@ -33,6 +37,13 @@ public class Tutor extends User {
         this.uid = uid;
     }
 
+    public String getPayRate() {
+        return this.payRate;
+    }
+
+    public void setPayRate(String payRate) {
+        this.payRate = payRate;
+    }
     public String getShortBio() {
         return this.shortBio;
     }
@@ -52,4 +63,5 @@ public class Tutor extends User {
     public void removeClass(Course oldClass) {
         this.tutoringClasses.remove(oldClass);
     }
+
 }

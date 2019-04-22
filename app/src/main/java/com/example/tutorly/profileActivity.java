@@ -221,6 +221,7 @@ public class profileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        /*
         if (user.getDisplayName() == null) {
             databaseUsers.child(user.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -233,6 +234,6 @@ public class profileActivity extends AppCompatActivity {
                     Log.w(TAG, "Failed to read value.", databaseError.toException());
                 }
             });
-        }
+        } */
     }
 }

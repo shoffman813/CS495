@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +23,7 @@ public class TutorSearchListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TutorAdapter adapter;
     List<Tutor> tutorList;
+    DatabaseReference dbTutors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +39,16 @@ public class TutorSearchListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true); //For recycler view, not elements inside it
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new TutorAdapter(this, tutorList);
+        recyclerView.setAdapter(adapter);
 
-        /*The following code is for testing*/
+        dbTutors = FirebaseDatabase.getInstance().getReference("tutors"); //Getting reference to Tutors node
+
+        Query query = dbTutors.orderByChild("classList/courseCodeAndNum").equalTo(classCode + classNumber); //Doesn't work yet
+
+        query.addListenerForSingleValueEvent(valueEventListener);
+
+        /*The following code is for testing
         Tutor tutor1 = new Tutor();
         tutor1.setShortBio("I'm a third year CS student with experience tutoring in Algebra I and II.");
         tutor1.setFirstName("Sarah");
@@ -47,11 +63,26 @@ public class TutorSearchListActivity extends AppCompatActivity {
 
         tutorList.add(tutor2);
 
-        /*End Testing Code*/
-
-        adapter = new TutorAdapter(this, tutorList);
-        recyclerView.setAdapter(adapter);
-
+        End Testing Code*/
     }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            tutorList.clear();
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Tutor tutor = snapshot.getValue(Tutor.class);
+                    tutorList.add(tutor);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
 }

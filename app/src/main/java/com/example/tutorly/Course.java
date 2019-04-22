@@ -5,6 +5,7 @@ public class Course {
     private String courseTitle;
     private String courseCode;
     private int courseNumber;
+    private String courseCodeAndNum;
 
     public Course(String courseTitle, String courseCode, int courseNumber) {
 
@@ -39,5 +40,14 @@ public class Course {
 
     public int getCourseNumber() {
         return this.courseNumber;
+    }
+
+    public String getCourseCodeAndNum() {
+        return this.courseCodeAndNum;
+    }
+
+    public void setCourseCodeAndNum() {
+        String courseNum = Integer.toString(this.courseNumber);
+        this.courseCodeAndNum = this.courseCode + courseNum;
     }
 }

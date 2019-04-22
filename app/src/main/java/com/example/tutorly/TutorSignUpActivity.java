@@ -2,6 +2,7 @@ package com.example.tutorly;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,17 +16,21 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 public class TutorSignUpActivity extends AppCompatActivity {
 
     /*Variable Declarations*/
-    EditText tutorBioEditText, classTitleEditText, classCodeEditText, classNumberEditText;
+    EditText tutorBioEditText, tutorPayRateEditText, classTitleEditText, classCodeEditText, classNumberEditText;
     Button addCourseBtn, registerTutorBtn;
-    String tutorBio, classTitle, classCode, classNumberString;
+    String tutorBio, payRate, classTitle, classCode, classNumberString;
     int classNumber;
     Tutor tutor;
     ListView classList;
@@ -47,6 +52,7 @@ public class TutorSignUpActivity extends AppCompatActivity {
         classTitleEditText = (EditText) findViewById(R.id.course_title);
         classCodeEditText = (EditText) findViewById(R.id.class_code);
         classNumberEditText = (EditText) findViewById(R.id.class_number);
+        tutorPayRateEditText = (EditText) findViewById(R.id.pay_rate);
         tutor = new Tutor();
 
         classList = (ListView) findViewById(R.id.class_list);
@@ -76,12 +82,19 @@ public class TutorSignUpActivity extends AppCompatActivity {
     }
 
     private void registerTutor() {
+        payRate = tutorPayRateEditText.getText().toString().trim(); //Saving tutor pay rate to string
         tutorBio = tutorBioEditText.getText().toString().trim(); //Saving tutor bio to string
 
         /*Validating information*/
         if(tutorBio.isEmpty()) { //No bio has been entered
             tutorBioEditText.setError("Field is required");
             tutorBioEditText.requestFocus();
+            return;
+        }
+
+        if(payRate.isEmpty()) { //No pay rate has been entered
+            tutorPayRateEditText.setError("Field is required");
+            tutorPayRateEditText.requestFocus();
             return;
         }
 
@@ -92,12 +105,17 @@ public class TutorSignUpActivity extends AppCompatActivity {
         }
 
         tutor.setShortBio(tutorBio); //Saving description to tutor object
+        tutor.setPayRate(payRate); //Saving pay rate to tutor object
 
         FirebaseUser fUser = mAuth.getCurrentUser(); //Getting current user
-        String currentUID = fUser.getUid(); //Getting user uid
+        final String currentUID = fUser.getUid(); //Getting user uid
 
         tutor.setUID(currentUID);
-        //tutor.setFirstName(databaseUsers.child(currentUID).child("firstName").getValue());
+
+        tutor.name = fUser.getDisplayName();
+        tutor.setEmail(fUser.getEmail());
+
+       // tutor.setFirstName(databaseUsers.child(currentUID).child("firstName").getValue(String.class);
 
         databaseTutors.child(currentUID).setValue(tutor); //Saving tutor to database under FireBase uid
 
@@ -141,6 +159,8 @@ public class TutorSignUpActivity extends AppCompatActivity {
         classNumber = Integer.parseInt(classNumberString); //Converting class number to integer
 
         Course course = new Course(classTitle, classCode, classNumber); //Creating new course object
+
+        course.setCourseCodeAndNum();
 
         arrayList.add(course.getCourseTitle() + " (" + course.getCourseCode()
                 +" " + course.getCourseNumber() + ")");

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        classCodeEditText = (EditText) findViewById(R.id.class_number_main);
+        classCodeEditText = (EditText) findViewById(R.id.class_code_main);
         classNumberEditText = (EditText) findViewById(R.id.class_number_main);
         searchBtn = (Button) findViewById(R.id.searchTutorsBtn);
 
