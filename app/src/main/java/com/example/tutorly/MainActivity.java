@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //pass data to TutorSearchListActivity
+                classCode = classCodeEditText.getText().toString().trim();
+                classNumber = classNumberEditText.getText().toString().trim();
+
                 Intent intent = new Intent(MainActivity.this, TutorSearchListActivity.class); //start search list activity
                 intent.putExtra("class_code", classCode);
                 intent.putExtra("class_number", classNumber);

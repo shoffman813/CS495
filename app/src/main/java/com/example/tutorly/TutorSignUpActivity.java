@@ -37,7 +37,8 @@ public class TutorSignUpActivity extends AppCompatActivity {
     ArrayList<String> arrayList; //Holds course description that tutor enters
     ArrayAdapter<String> arrayAdapter;
     private FirebaseAuth mAuth;
-    DatabaseReference databaseUsers, databaseTutors;
+    FirebaseUser fUser;
+    DatabaseReference databaseUsers, databaseTutors, databaseCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,10 @@ public class TutorSignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tutor_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
+        fUser = mAuth.getCurrentUser();
         databaseUsers = FirebaseDatabase.getInstance().getReference("users"); //reference to user database
         databaseTutors = FirebaseDatabase.getInstance().getReference("tutors"); //reference to tutor database
+        databaseCourses = FirebaseDatabase.getInstance().getReference("classes"); //Reference to classes database
 
         tutorBioEditText = (EditText) findViewById(R.id.short_tutor_bio);
         classTitleEditText = (EditText) findViewById(R.id.course_title);
@@ -158,9 +161,13 @@ public class TutorSignUpActivity extends AppCompatActivity {
 
         classNumber = Integer.parseInt(classNumberString); //Converting class number to integer
 
-        Course course = new Course(classTitle, classCode, classNumber); //Creating new course object
+        Course course = new Course(classTitle, classCode, classNumber, fUser.getUid()); //Creating new course object
 
         course.setCourseCodeAndNum();
+
+        String id = databaseCourses.push().getKey();
+
+        databaseCourses.child(id).setValue(course);
 
         arrayList.add(course.getCourseTitle() + " (" + course.getCourseCode()
                 +" " + course.getCourseNumber() + ")");

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,22 +20,23 @@ import java.util.List;
 public class TutorSearchListActivity extends AppCompatActivity {
 
     /*Declaring Variables*/
-    String classCode, classNumber;
+    //String classCode, classNumber;
     RecyclerView recyclerView;
     TutorAdapter adapter;
     List<Tutor> tutorList;
-    DatabaseReference dbTutors;
+    List<Course> uidList;
+    DatabaseReference dbTutors, dbCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_search_list);
 
-        classCode = getIntent().getStringExtra("class_code");
-        classNumber = getIntent().getStringExtra("class_number");
-
+        String classCode = getIntent().getStringExtra("class_code");
+        String classNumber = getIntent().getStringExtra("class_number");
 
         tutorList = new ArrayList<>();
+        uidList = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true); //For recycler view, not elements inside it
@@ -42,11 +44,20 @@ public class TutorSearchListActivity extends AppCompatActivity {
         adapter = new TutorAdapter(this, tutorList);
         recyclerView.setAdapter(adapter);
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         dbTutors = FirebaseDatabase.getInstance().getReference("tutors"); //Getting reference to Tutors node
+        dbCourses = FirebaseDatabase.getInstance().getReference("classes"); //Getting reference to Classes node
 
-        Query query = dbTutors.orderByChild("classList/courseCodeAndNum").equalTo(classCode + classNumber); //Doesn't work yet
+        Query query1 = dbCourses.orderByChild("courseCodeAndNum").equalTo(classCode + classNumber);
 
-        query.addListenerForSingleValueEvent(valueEventListener);
+        query1.addListenerForSingleValueEvent(valueEventListener2);
+
+        /*
+        for(int i = 0; i < uidList.size(); i++) {
+            Query query2 = dbTutors.orderByChild("uid").equalTo(uidList.get(i).getUid()); //Doesn't work yet
+            query2.addListenerForSingleValueEvent(valueEventListener);
+        }*/
 
         /*The following code is for testing
         Tutor tutor1 = new Tutor();
@@ -69,11 +80,33 @@ public class TutorSearchListActivity extends AppCompatActivity {
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            tutorList.clear();
+          // tutorList.clear();
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Tutor tutor = snapshot.getValue(Tutor.class);
                     tutorList.add(tutor);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+
+    ValueEventListener valueEventListener2 = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Course course = snapshot.getValue(Course.class);
+                    if(course != null) {
+                        Query query2 = dbTutors.orderByChild("uid").equalTo(course.getUid()); //Doesn't work yet
+                        query2.addValueEventListener(valueEventListener);
+                    }
+                    //uidList.add(course);
                 }
                 adapter.notifyDataSetChanged();
             }

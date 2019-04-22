@@ -6,12 +6,14 @@ public class Course {
     private String courseCode;
     private int courseNumber;
     private String courseCodeAndNum;
+    private String uid;
 
-    public Course(String courseTitle, String courseCode, int courseNumber) {
+    public Course(String courseTitle, String courseCode, int courseNumber, String uid) {
 
         this.courseTitle = courseTitle;
         this.courseCode = courseCode;
         this.courseNumber = courseNumber;
+        this.uid = uid;
     }
 
     public Course() {
@@ -49,5 +51,13 @@ public class Course {
     public void setCourseCodeAndNum() {
         String courseNum = Integer.toString(this.courseNumber);
         this.courseCodeAndNum = this.courseCode + courseNum;
+    }
+
+    public String getUid() {
+        return this.uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
