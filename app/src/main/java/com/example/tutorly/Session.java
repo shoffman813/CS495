@@ -12,6 +12,8 @@ public class Session {
 
     private boolean isRequested; //When true, shows up in user/tutor's requested screen
     private boolean isConfirmed; //When true, shows up in user's scheduled screen
+    private boolean isDenied; //When true, session is dismissed from user/tutor requested screen
+    private String sessionRequestMessage;
 
     /*Class constructor*/
     public Session(String tutorName, int meetingMonth, int meetingDay, int meetingHour,

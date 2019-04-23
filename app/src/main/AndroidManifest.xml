@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TutorSignUpActivity"></activity>
+        <activity android:name=".RequestTutorActivity"></activity>
+        <activity android:name=".TutorListProfileActivity" />
+        <activity android:name=".TutorSignUpActivity" />
         <activity android:name=".SessionHistoryActivity" />
         <activity android:name=".SessionsScheduledActivity" />
         <activity android:name=".SessionRequestsActivity" />
