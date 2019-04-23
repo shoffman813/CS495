@@ -10,6 +10,9 @@ public class Session {
     private int meetingMinute;
     private String meetingLocation;
 
+    private boolean isRequested; //When true, shows up in user/tutor's requested screen
+    private boolean isConfirmed; //When true, shows up in user's scheduled screen
+
     /*Class constructor*/
     public Session(String tutorName, int meetingMonth, int meetingDay, int meetingHour,
                    int meetingMinute, String meetingLocation) {

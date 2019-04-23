@@ -44,37 +44,12 @@ public class TutorSearchListActivity extends AppCompatActivity {
         adapter = new TutorAdapter(this, tutorList);
         recyclerView.setAdapter(adapter);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         dbTutors = FirebaseDatabase.getInstance().getReference("tutors"); //Getting reference to Tutors node
         dbCourses = FirebaseDatabase.getInstance().getReference("classes"); //Getting reference to Classes node
 
         Query query1 = dbCourses.orderByChild("courseCodeAndNum").equalTo(classCode + classNumber);
 
-        query1.addListenerForSingleValueEvent(valueEventListener2);
-
-        /*
-        for(int i = 0; i < uidList.size(); i++) {
-            Query query2 = dbTutors.orderByChild("uid").equalTo(uidList.get(i).getUid()); //Doesn't work yet
-            query2.addListenerForSingleValueEvent(valueEventListener);
-        }*/
-
-        /*The following code is for testing
-        Tutor tutor1 = new Tutor();
-        tutor1.setShortBio("I'm a third year CS student with experience tutoring in Algebra I and II.");
-        tutor1.setFirstName("Sarah");
-        tutor1.setLastName("Jones");
-
-        tutorList.add(tutor1);
-
-        Tutor tutor2 = new Tutor();
-        tutor2.setShortBio("I'm a fourth year Marketing Major looking to tutor in English");
-        tutor2.setFirstName("Dave");
-        tutor2.setLastName("Johnson");
-
-        tutorList.add(tutor2);
-
-        End Testing Code*/
+        query1.addValueEventListener(valueEventListener2);
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
