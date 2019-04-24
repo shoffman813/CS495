@@ -1,28 +1,35 @@
 package com.example.tutorly;
 
+import java.sql.Time;
+
 /*Class to hold all information about a scheduled/requested session*/
 public class Session {
 
     private String tutorName;
+    private String userName;
     private int meetingMonth;
     private int meetingDay;
-    private int meetingHour;
-    private int meetingMinute;
+    private int meetingYear;
+    private String meetingStartTime;
+    private String meetingEndTime;
     private String meetingLocation;
-
-    private boolean isRequested; //When true, shows up in user/tutor's requested screen
-    private boolean isConfirmed; //When true, shows up in user's scheduled screen
-    private boolean isDenied; //When true, session is dismissed from user/tutor requested screen
     private String sessionRequestMessage;
 
+    public boolean isRequested; //When true, shows up in user/tutor's requested screen
+    public boolean isConfirmed; //When true, shows up in user's scheduled screen
+    public boolean isDenied; //When true, session is dismissed from user/tutor requested screen
+
+    private String tutorUid;
+    private String userUid; //UID of user who requested
+
     /*Class constructor*/
-    public Session(String tutorName, int meetingMonth, int meetingDay, int meetingHour,
-                   int meetingMinute, String meetingLocation) {
+    public Session(String tutorName, int meetingMonth, int meetingDay, String meetingStartTime,
+                   String meetingEndTime, String meetingLocation) {
         this.tutorName = tutorName;
         this.meetingMonth = meetingMonth;
         this.meetingDay = meetingDay;
-        this.meetingHour = meetingHour;
-        this.meetingMinute = meetingMinute;
+        this.meetingStartTime = meetingStartTime;
+        this.meetingEndTime = meetingEndTime;
         this.meetingLocation = meetingLocation;
     }
 
@@ -57,22 +64,12 @@ public class Session {
         else throw new IllegalArgumentException("Invalid day value");
     }
 
-    public int getMeetingHour() { //Method to get the meeting hour
-        return this.meetingHour;
+    public String getMeetingStartTime() { //Method to get the meeting hour
+        return this.meetingStartTime;
     }
 
-    public void setMeetingHour(int meetingHour) { //Method to set the meeting hour
-        if((meetingHour >= 0) && (meetingHour <24)) this.meetingHour = meetingHour;
-        else throw new IllegalArgumentException("Invalid hour value");
-    }
-
-    public int getMeetingMinute() { //Method to get the meeting minute
-        return this.meetingMinute;
-    }
-
-    public void setMeetingMinute(int meetingMinute) { //Method to set the meeting minute
-        if((meetingMinute >= 0) && (meetingMinute < 60)) this.meetingMinute = meetingMinute;
-        else throw new IllegalArgumentException("Invalid minute value");
+    public void setMeetingStartTime(String meetingStartTime) { //Method to set the meeting hour
+        this.meetingStartTime = meetingStartTime;
     }
 
     public String getMeetingLocation() { //Method to get the meeting location
@@ -81,5 +78,53 @@ public class Session {
 
     public void setMeetingLocation(String meetingLocation) { //Method to set the meeting location
         this.meetingLocation = meetingLocation;
+    }
+
+    public int getMeetingYear() {
+        return meetingYear;
+    }
+
+    public void setMeetingYear(int meetingYear) {
+        this.meetingYear = meetingYear;
+    }
+
+    public String getSessionRequestMessage() {
+        return sessionRequestMessage;
+    }
+
+    public void setSessionRequestMessage(String sessionRequestMessage) {
+        this.sessionRequestMessage = sessionRequestMessage;
+    }
+
+    public String getTutorUid() {
+        return tutorUid;
+    }
+
+    public void setTutorUid(String tutorUid) {
+        this.tutorUid = tutorUid;
+    }
+
+    public String getUserUid() {
+        return userUid;
+    }
+
+    public void setUserUid(String userUid) {
+        this.userUid = userUid;
+    }
+
+    public String getMeetingEndTime() {
+        return meetingEndTime;
+    }
+
+    public void setMeetingEndTime(String meetingEndTime) {
+        this.meetingEndTime = meetingEndTime;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

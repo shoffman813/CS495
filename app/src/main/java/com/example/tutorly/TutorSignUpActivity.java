@@ -71,7 +71,7 @@ public class TutorSignUpActivity extends AppCompatActivity {
             }
         });
 
-        //Add onitemclicklistener so if tutor clicks a list item, it is deleted
+        //Add onitemclicklistener so if tutor clicks a list item, it is deleted ??
         //from the Tutor object and the listView screen
         //Also add transparent X to listview item
 

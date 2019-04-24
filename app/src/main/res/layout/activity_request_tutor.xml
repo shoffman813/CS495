@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
@@ -27,7 +27,8 @@
             android:id="@+id/request_tutor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Request a Tutoring Session"
+            android:text="@string/request_a_tutoring_session"
+            android:textColor="@android:color/black"
             android:textSize="25sp"
             android:gravity="center"
             android:maxLines="2"/>
@@ -36,58 +37,139 @@
             android:id="@+id/request_tutor2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:text="with"
             android:textSize="20sp"
             android:gravity="center"
             android:maxLines="2"/>
 
+        <TextView
+            android:id="@+id/selectDateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_a_session_date"
+            android:textSize="18sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"/>
+
         <CalendarView
-            android:id="@+id/calendarView2"
+            android:id="@+id/calendar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:layout_height="wrap_content"/>
 
-        <EditText
-            android:id="@+id/editText"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Meeting Location"/>
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editText7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="time"
-            android:hint="Session Start Time"
-            android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/meetingLocationEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/meeting_location"/>
 
-        <EditText
-            android:id="@+id/editText8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="time"
-            android:hint="Session End Time"
-            android:layout_marginTop="10dp"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editText6"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="Session Description and Other Details"
-            android:layout_marginTop="10dp"
-            android:maxLines="6"
-            android:minLines="3"/>
+            android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp">
+
+            <EditText
+                android:id="@+id/sessionStartEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="time"
+                android:hint="@string/session_start_time"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                android:id="@+id/sessionStartAmOrPmEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textCapCharacters"
+                android:hint="@string/am_or_pm"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/sessionEndEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time"
+                    android:hint="@string/session_end_time"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/sessionEndAmOrPmEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textCapCharacters"
+                    android:hint="@string/am_or_pm"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <EditText
+                android:id="@+id/sessionRequestMessageEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/other_details"
+                android:inputType="textCapSentences|textNoSuggestions|textMultiLine"
+                android:maxLines="5"
+                android:minLines="3"/>
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/requestTutorBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Request a Tutoring Session" />
+            android:text="@string/request_a_tutoring_session" />
     </LinearLayout>
 
     </ScrollView>

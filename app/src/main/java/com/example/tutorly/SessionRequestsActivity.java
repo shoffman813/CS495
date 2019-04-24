@@ -24,7 +24,8 @@ public class SessionRequestsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_session_requests);
 
         /*Populating the sessions with mock data for the demo*/
-        Session session1 = new Session("John Smith", 4, 12, 5, 30, "Gorgas Library" );
+
+/*        Session session1 = new Session("John Smith", 4, 12, 5, 30, "Gorgas Library" );
         Session session2 = new Session("Jane Doe", 4, 13, 2, 15, "Rodgers Library" );
         Session session3 = new Session("Thanos Jones", 4, 26, 6, 30, "McLure Library" );
         Session session4 = new Session("Jane Doe", 5, 1, 4, 45, "Gorgas Library" );
@@ -32,10 +33,10 @@ public class SessionRequestsActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listview);
 
-        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<String> arrayList = new ArrayList<>(); */
 
         /*Adding the session descriptions to the ArrayList*/
-        arrayList.add("Requested session with " + session1.getTutorName() + " at " + session1.getMeetingHour()
+/*        arrayList.add("Requested session with " + session1.getTutorName() + " at " + session1.getMeetingHour()
                 +":" + session1.getMeetingMinute() + " at " + session1.getMeetingLocation());
         arrayList.add("Requested session with " + session2.getTutorName() + " at " + session2.getMeetingHour()
                 +":" + session2.getMeetingMinute() + " at " + session2.getMeetingLocation());
@@ -44,11 +45,11 @@ public class SessionRequestsActivity extends AppCompatActivity {
         arrayList.add("Requested session with " + session4.getTutorName() + " at " + session4.getMeetingHour()
                 +":" + session4.getMeetingMinute() + " at " + session4.getMeetingLocation());
         arrayList.add("Requested session with " + session5.getTutorName() + " at " + session5.getMeetingHour()
-                +":" + session5.getMeetingMinute() + " at " + session5.getMeetingLocation());
+                +":" + session5.getMeetingMinute() + " at " + session5.getMeetingLocation());   */
 
         /*Using ArrayAdapter to populate ListView with session data*/
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
-        listView.setAdapter(arrayAdapter);
+//        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
+ //       listView.setAdapter(arrayAdapter);
 
         /*Code to add bottom navigation bar to the sessions request screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
