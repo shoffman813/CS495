@@ -2,6 +2,7 @@ package com.example.tutorly;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import androidx.annotation.RecentlyNonNull;
 
 /*Screen where a user can request a tutoring session with a tutor*/
 public class RequestTutorActivity extends AppCompatActivity {
@@ -32,9 +31,7 @@ public class RequestTutorActivity extends AppCompatActivity {
     FirebaseUser fUser;
     DatabaseReference databaseTutorSessions, databaseUserSessions;
 
-    Session session;
-
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI 18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +43,8 @@ public class RequestTutorActivity extends AppCompatActivity {
         databaseTutorSessions = FirebaseDatabase.getInstance().getReference("tutorSessions"); //reference to sessions saved under tutor uid
         databaseUserSessions = FirebaseDatabase.getInstance().getReference("userSessions"); //reference to sessions saved under user uid
 
-        String tutorName = getIntent().getStringExtra("tutor_name"); //Saved from TutorSearchListActivity
+        final String tutorName = getIntent().getStringExtra("tutor_name"); //Saved from TutorSearchListActivity
+        final String tutorUid = getIntent().getStringExtra("tutor_uid"); //Saved from TutorSearchListActivity
 
         tutorNameTextView = (TextView) findViewById(R.id.request_tutor2);
         tutorNameTextView.setText("with " + tutorName); //Display tutor name on the screen
@@ -61,7 +59,7 @@ public class RequestTutorActivity extends AppCompatActivity {
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() { //When the calendar date is changed
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 meetingMonth = month;
                 meetingDay = dayOfMonth;
                 meetingYear = year;
@@ -73,16 +71,14 @@ public class RequestTutorActivity extends AppCompatActivity {
         requestTutoringSessionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSession();
+                addSession(tutorUid, tutorName);
             }
         });
 
 
     }
 
-    private void addSession() {
-
-        String tutorUid = getIntent().getStringExtra("tutor_uid"); //Saved from TutorSearchListActivity
+    private void addSession(String tutorUid, String tutorName) {
 
         meetingLocation = meetingLocationEditText.getText().toString().trim();
         sessionStart = sessionStartEditText.getText().toString().trim();
@@ -91,10 +87,8 @@ public class RequestTutorActivity extends AppCompatActivity {
         endAmOrPm = sessionEndAmOrPmEditText.getText().toString().trim();
         sessionMessage = sessionMessageEditText.getText().toString().trim();
 
-        String tutorName2 = getIntent().getStringExtra("tutor_name"); //Saved from TutorSearchListActivity
-
         if(isChanged == 0) {
-            Toast.makeText(getApplicationContext(), "You must select a date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RequestTutorActivity.this, "You must select a date", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -136,10 +130,12 @@ public class RequestTutorActivity extends AppCompatActivity {
 
         /*All validations are passed*/
 
-        session.setTutorName(tutorName2);
+        Session session = new Session();
+
+        session.setTutorName(tutorName);
         session.setUserName(fUser.getDisplayName());
         session.setMeetingDay(meetingDay);
-        session.setMeetingMonth(meetingMonth);
+        session.setMeetingMonth(meetingMonth+1);
         session.setMeetingYear(meetingYear);
         session.setMeetingStartTime(sessionStart + " " + startAmOrPm);
         session.setMeetingEndTime(sessionEnd + " " + endAmOrPm);
@@ -156,7 +152,7 @@ public class RequestTutorActivity extends AppCompatActivity {
         databaseTutorSessions.child(tutorUid).setValue(session);
         databaseUserSessions.child(fUser.getUid()).setValue(session);
 
-        Toast.makeText(this, "Session Requested Successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText( RequestTutorActivity.this, "Session Requested Successfully", Toast.LENGTH_SHORT).show();
 
         RequestTutorActivity.this.finish(); //So user cannot return to request tutor activity screen
         Intent intent = new Intent(RequestTutorActivity.this, MainActivity.class); //start account activity
