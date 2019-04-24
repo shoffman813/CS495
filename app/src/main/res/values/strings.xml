@@ -38,6 +38,7 @@
     <string name="search_for_tutors">Search for Tutors</string>
     <string name="search">Search</string>
     <string name="pay_rate_per_hour">Pay rate per hour</string>
+    <string name="with">with</string>
 
     <string-array name="colleges_array">
         <item>Select One</item>

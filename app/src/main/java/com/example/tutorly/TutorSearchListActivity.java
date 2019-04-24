@@ -1,5 +1,6 @@
 package com.example.tutorly;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*The screen to hold the list of tutor search results*/
-public class TutorSearchListActivity extends AppCompatActivity {
+public class TutorSearchListActivity extends AppCompatActivity implements TutorAdapter.OnTutorListener {
 
     /*Declaring Variables*/
     //String classCode, classNumber;
@@ -26,6 +27,7 @@ public class TutorSearchListActivity extends AppCompatActivity {
     List<Tutor> tutorList;
     List<Course> uidList;
     DatabaseReference dbTutors, dbCourses;
+    String tutorUid, tutorName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class TutorSearchListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true); //For recycler view, not elements inside it
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new TutorAdapter(this, tutorList);
+        adapter = new TutorAdapter(this, tutorList, this);
         recyclerView.setAdapter(adapter);
 
         dbTutors = FirebaseDatabase.getInstance().getReference("tutors"); //Getting reference to Tutors node
@@ -50,6 +52,7 @@ public class TutorSearchListActivity extends AppCompatActivity {
         Query query1 = dbCourses.orderByChild("courseCodeAndNum").equalTo(classCode + classNumber);
 
         query1.addValueEventListener(valueEventListener2);
+
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
@@ -92,5 +95,17 @@ public class TutorSearchListActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void onTutorClick(int position) {
+        Tutor tutor = tutorList.get(position);
+        tutorUid = tutor.getUID();
+        tutorName = tutor.name;
+
+        Intent intent = new Intent(this, RequestTutorActivity.class);
+        intent.putExtra("tutor_uid", tutorUid); //Sending tutor uid to RequestTutorActivity
+        intent.putExtra("tutor_name", tutorName); //Sending tutor name to RequestTutorActivity
+        startActivity(intent);
+    }
 
 }

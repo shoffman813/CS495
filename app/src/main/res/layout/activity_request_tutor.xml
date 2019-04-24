@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -18,15 +24,28 @@
 
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/request_tutor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Request a Tutoring Session"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:maxLines="2"/>
+
+        <TextView
+            android:id="@+id/request_tutor2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="with"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:maxLines="2"/>
 
         <CalendarView
             android:id="@+id/calendarView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
 
         <EditText
             android:id="@+id/editText"
@@ -58,18 +77,17 @@
             android:id="@+id/editText6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:inputType="textPersonName"
             android:hint="Session Description and Other Details"
             android:layout_marginTop="10dp"
             android:maxLines="6"
-            android:minLines="2"/>
+            android:minLines="3"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/requestTutorBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Request a Tutoring Session" />
     </LinearLayout>
 
     </ScrollView>
