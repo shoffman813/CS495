@@ -21,11 +21,9 @@ import java.util.List;
 public class TutorSearchListActivity extends AppCompatActivity implements TutorAdapter.OnTutorListener {
 
     /*Declaring Variables*/
-    //String classCode, classNumber;
     RecyclerView recyclerView;
     TutorAdapter adapter;
     List<Tutor> tutorList;
-    List<Course> uidList;
     DatabaseReference dbTutors, dbCourses;
     String tutorUid, tutorName;
 
@@ -34,35 +32,33 @@ public class TutorSearchListActivity extends AppCompatActivity implements TutorA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_search_list);
 
-        String classCode = getIntent().getStringExtra("class_code");
-        String classNumber = getIntent().getStringExtra("class_number");
+        String classCode = getIntent().getStringExtra("class_code"); //Saved from MainActivity
+        String classNumber = getIntent().getStringExtra("class_number"); //Saved from MainActivity
 
-        tutorList = new ArrayList<>();
-        uidList = new ArrayList<>();
+        tutorList = new ArrayList<>(); //List of tutors to save search results in
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true); //For recycler view, not elements inside it
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TutorAdapter(this, tutorList, this);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter); //Set Tutor adapter for recycler view
 
         dbTutors = FirebaseDatabase.getInstance().getReference("tutors"); //Getting reference to Tutors node
         dbCourses = FirebaseDatabase.getInstance().getReference("classes"); //Getting reference to Classes node
 
-        Query query1 = dbCourses.orderByChild("courseCodeAndNum").equalTo(classCode + classNumber);
+        Query query1 = dbCourses.orderByChild("courseCodeAndNum").equalTo(classCode + classNumber); //Finding tutors with same class code + number
 
-        query1.addValueEventListener(valueEventListener2);
+        query1.addValueEventListener(valueEventListener2); //First query the course node
 
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          // tutorList.clear();
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Tutor tutor = snapshot.getValue(Tutor.class);
-                    tutorList.add(tutor);
+                    Tutor tutor = snapshot.getValue(Tutor.class); //When tutors who tutor in specific class are found
+                    tutorList.add(tutor); //Add tutor to tutorList
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -70,7 +66,7 @@ public class TutorSearchListActivity extends AppCompatActivity implements TutorA
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-
+            //Add exception handling
         }
     };
 
@@ -79,33 +75,32 @@ public class TutorSearchListActivity extends AppCompatActivity implements TutorA
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Course course = snapshot.getValue(Course.class);
+                    Course course = snapshot.getValue(Course.class); //Finding course from course database
                     if(course != null) {
-                        Query query2 = dbTutors.orderByChild("uid").equalTo(course.getUid()); //Doesn't work yet
-                        query2.addValueEventListener(valueEventListener);
+                        Query query2 = dbTutors.orderByChild("uid").equalTo(course.getUid()); //Querying tutors with UIDs attached to courses
+                        query2.addValueEventListener(valueEventListener); //Now query the tutors
                     }
-                    //uidList.add(course);
                 }
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged(); //Update display
             }
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-
+            //Add exception handling
         }
     };
 
     @Override
-    public void onTutorClick(int position) {
-        Tutor tutor = tutorList.get(position);
+    public void onTutorClick(int position) { //Method for when a tutor card is clicked on
+        Tutor tutor = tutorList.get(position); //Get tutor at correct recycler position
         tutorUid = tutor.getUID();
         tutorName = tutor.name;
 
         Intent intent = new Intent(this, RequestTutorActivity.class);
         intent.putExtra("tutor_uid", tutorUid); //Sending tutor uid to RequestTutorActivity
         intent.putExtra("tutor_name", tutorName); //Sending tutor name to RequestTutorActivity
-        startActivity(intent);
+        startActivity(intent); //Open RequestTutor screen
     }
 
 }
