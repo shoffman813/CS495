@@ -5,59 +5,64 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*Class to hold a record of a user's currently scheduled sessions*/
-public class SessionsScheduledActivity extends AppCompatActivity {
+public class SessionsScheduledActivity extends AppCompatActivity implements SessionAdapter.OnSessionListener{
 
-    ListView listView2;
+    private FirebaseAuth mAuth;
+    FirebaseUser fUser;
+    DatabaseReference databaseScheduledSessions;
+    List<Session> sessionList;
+    RecyclerView recyclerView;
+    SessionAdapter adapter;
+    Button btn;
+    String sessionTutorUid, sessionUserUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sessions_scheduled);
 
-        Button btn = (Button)findViewById(R.id.SessionHistoryBtn);
+        mAuth = FirebaseAuth.getInstance();
+        fUser = mAuth.getCurrentUser();
+        databaseScheduledSessions = FirebaseDatabase.getInstance().getReference("scheduledSessions"); //reference to sessions saved under user uid
+
+        sessionList = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView3);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SessionAdapter(this, sessionList, this);
+        recyclerView.setAdapter(adapter);
+
+        btn = (Button)findViewById(R.id.viewSessionsAsTutorBtn);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //A button to view the session history screen
-                startActivity(new Intent(SessionsScheduledActivity.this, SessionHistoryActivity.class));
+                startActivity(new Intent(SessionsScheduledActivity.this, SessionsScheduledAsTutorActivity.class));
             }
         });
 
-        /*Populating the sessions scheduled screen with mock data for the demo*/
-/*        Session session1 = new Session("John Smith", 4, 12, 5, 30, "Gorgas Library" );
-        Session session2 = new Session("Jane Doe", 4, 13, 2, 15, "Rodgers Library" );
-        Session session3 = new Session("Thanos Jones", 4, 26, 6, 30, "McLure Library" );
-        Session session4 = new Session("Jane Doe", 5, 1, 4, 45, "Gorgas Library" );
-        Session session5 = new Session("Jimmy Walker", 5, 2, 3, 30, "McLure Library" );
+        Query query = databaseScheduledSessions.orderByChild("userUid").equalTo(fUser.getUid());
 
-        listView2 = (ListView) findViewById(R.id.scheduled_list);
-
-        ArrayList<String> arrayList = new ArrayList<>();    */
-
-        /*Adding the session descriptions to the ArrayList*/
-/*        arrayList.add("Scheduled session with " + session1.getTutorName() + " at " + session1.getMeetingHour()
-                +":" + session1.getMeetingMinute() + " at " + session1.getMeetingLocation());
-        arrayList.add("Scheduled session with " + session2.getTutorName() + " at " + session2.getMeetingHour()
-                +":" + session2.getMeetingMinute() + " at " + session2.getMeetingLocation());
-        arrayList.add("Scheduled session with " + session3.getTutorName() + " at " + session3.getMeetingHour()
-                +":" + session3.getMeetingMinute() + " at " + session3.getMeetingLocation());
-        arrayList.add("Scheduled session with " + session4.getTutorName() + " at " + session4.getMeetingHour()
-                +":" + session4.getMeetingMinute() + " at " + session4.getMeetingLocation());
-        arrayList.add("Scheduled session with " + session5.getTutorName() + " at " + session5.getMeetingHour()
-                +":" + session5.getMeetingMinute() + " at " + session5.getMeetingLocation());    */
-
-        /*Using ArrayAdapter to populate ListView with session data*/
-/*        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
-        listView2.setAdapter(arrayAdapter);   */
+        query.addValueEventListener(valueEventListener);
 
         /*Code to add bottom navigation bar to the sessions request screen*/
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -87,4 +92,28 @@ public class SessionsScheduledActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Session session = snapshot.getValue(Session.class); //When tutors who tutor in specific class are found
+                    sessionList.add(session); //Add session to sessionList
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            //Add exception handling
+        }
+    };
+
+    @Override
+    public void onSessionClick(int position) { //Method for when a tutor card is clicked on
+        //Session session = sessionList.get(position); //Get session at correct recycler position
+    }
+
 }

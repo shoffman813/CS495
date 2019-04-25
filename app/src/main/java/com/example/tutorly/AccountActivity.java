@@ -48,7 +48,7 @@ public class AccountActivity extends AppCompatActivity {
         fullNameTextView = (TextView) findViewById(R.id.full_name_profile);
         verifiedTextView = (TextView) findViewById(R.id.verified_account);
         emailTextView = (TextView) findViewById(R.id.email_account);
-        phoneTextView = (TextView) findViewById(R.id.phone_number_account);
+        //phoneTextView = (TextView) findViewById(R.id.phone_number_account);
 
         Button becomeATutorBtn = (Button) findViewById(R.id.becomeATutorBtn); //Button for user to become a tutor
 

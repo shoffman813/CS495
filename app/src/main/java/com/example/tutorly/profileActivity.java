@@ -62,7 +62,7 @@ public class profileActivity extends AppCompatActivity {
 
         name = (EditText) findViewById(R.id.editTextName); //EditText box for user's name
         imageView = (ImageView) findViewById(R.id.imageView); //ImageView for user's profile picture
-        university = (EditText) findViewById(R.id.editTextUniversity);
+        //university = (EditText) findViewById(R.id.editTextUniversity);
 
         imageView.setOnClickListener(new View.OnClickListener() { //When profile picture is clicked on
             @Override

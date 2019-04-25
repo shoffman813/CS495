@@ -150,6 +150,8 @@ public class RequestTutorActivity extends AppCompatActivity {
 
         String id = databaseSessions.push().getKey();
 
+        session.setKey(id);
+
         databaseSessions.child(id).setValue(session);
 
         Toast.makeText( RequestTutorActivity.this, "Session Requested Successfully", Toast.LENGTH_SHORT).show();

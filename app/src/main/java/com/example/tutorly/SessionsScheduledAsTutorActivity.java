@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,8 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionRequestsAsTutorActivity extends AppCompatActivity implements SessionAsTutorAdapter.OnSessionAsTutorListener{
-
+public class SessionsScheduledAsTutorActivity extends AppCompatActivity implements SessionAsTutorAdapter.OnSessionAsTutorListener{
     private FirebaseAuth mAuth;
     FirebaseUser fUser;
     DatabaseReference databaseSessions, databaseScheduledSessions;
@@ -43,7 +41,7 @@ public class SessionRequestsAsTutorActivity extends AppCompatActivity implements
         fUser = mAuth.getCurrentUser();
 
         sessionList = new ArrayList<>();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSessionRequestsAsTutor);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSessionScheduledAsTutor);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SessionAsTutorAdapter(this, sessionList, this);
@@ -52,22 +50,22 @@ public class SessionRequestsAsTutorActivity extends AppCompatActivity implements
         databaseSessions = FirebaseDatabase.getInstance().getReference("sessions"); //reference to sessions saved under user uid
         databaseScheduledSessions = FirebaseDatabase.getInstance().getReference("scheduledSessions");
 
-        Query query = databaseSessions.orderByChild("tutorUid").equalTo(fUser.getUid());
+        Query query = databaseScheduledSessions.orderByChild("tutorUid").equalTo(fUser.getUid());
 
         query.addValueEventListener(valueEventListener);
 
-        viewAsStudentBtn = (Button) findViewById(R.id.viewAsStudentBtn);
+        viewAsStudentBtn = (Button) findViewById(R.id.viewScheduledSessionsAsStudentBtn);
         viewAsStudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SessionRequestsAsTutorActivity.this, SessionRequestsActivity.class);
+                Intent intent = new Intent(SessionsScheduledAsTutorActivity.this, SessionsScheduledActivity.class);
                 startActivity(intent);
             }
         });
 
         /*Code to add bottom navigation bar to the sessions request screen*/
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_10);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_20);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,19 +73,19 @@ public class SessionRequestsAsTutorActivity extends AppCompatActivity implements
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.profile_item: //Open Profile screen when button is pressed
-                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, profileActivity.class));
+                                startActivity(new Intent(SessionsScheduledAsTutorActivity.this, profileActivity.class));
                                 break;
                             case R.id.settings_item: //Open Settings screen when button is pressed
-                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, AccountActivity.class));
+                                startActivity(new Intent(SessionsScheduledAsTutorActivity.this, AccountActivity.class));
                                 break;
                             case R.id.home_item:  //Open Home screen when button is pressed
-                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, MainActivity.class));
+                                startActivity(new Intent(SessionsScheduledAsTutorActivity.this, MainActivity.class));
                                 break;
                             case R.id.scheduled_item: //Open Scheduled Sessions screen when button is pressed
-                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, SessionsScheduledActivity.class));
+                                startActivity(new Intent(SessionsScheduledAsTutorActivity.this, SessionsScheduledActivity.class));
                                 break;
                             case R.id.requested_item: //Open Requested Sessions screen when button is pressed
-                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, SessionRequestsActivity.class));
+                                startActivity(new Intent(SessionsScheduledAsTutorActivity.this, SessionRequestsActivity.class));
                                 break;
                         }
                         return true;
@@ -115,16 +113,6 @@ public class SessionRequestsAsTutorActivity extends AppCompatActivity implements
 
     @Override
     public void onSessionAsTutorClick(int position) { //Method for when a tutor card is clicked on
-        Toast.makeText(this, "Session Confirmed", Toast.LENGTH_SHORT).show();
-        Session session = sessionList.get(position); //Get session at correct recycler position
-
-        databaseSessions.child(session.getKey()).removeValue();
-
-        String id = databaseScheduledSessions.push().getKey();
-        session.setKey(id);
-        databaseScheduledSessions.child(id).setValue(session);
-
-        Intent intent = new Intent(this, SessionsScheduledActivity.class);
-        startActivity(intent); //Open main screen
+        //do nothing
     }
 }

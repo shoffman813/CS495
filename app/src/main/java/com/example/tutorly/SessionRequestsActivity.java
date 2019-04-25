@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*Class to display all requested sessions*/
-public class SessionRequestsActivity extends AppCompatActivity {
+public class SessionRequestsActivity extends AppCompatActivity implements SessionAdapter.OnSessionListener {
 
     ListView listView;
     private FirebaseAuth mAuth;
@@ -50,7 +50,7 @@ public class SessionRequestsActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SessionAdapter(this, sessionList);
+        adapter = new SessionAdapter(this, sessionList, this);
         recyclerView.setAdapter(adapter);
 
         viewAsTutorBtn = (Button) findViewById(R.id.viewAsTutor);
@@ -65,7 +65,6 @@ public class SessionRequestsActivity extends AppCompatActivity {
         Query query = databaseSessions.orderByChild("userUid").equalTo(fUser.getUid());
 
         query.addValueEventListener(valueEventListener);
-
 
         /*Code to add bottom navigation bar to the sessions request screen*/
 
@@ -114,4 +113,9 @@ public class SessionRequestsActivity extends AppCompatActivity {
             //Add exception handling
         }
     };
+
+    @Override
+    public void onSessionClick(int position) { //Method for when a tutor card is clicked on
+        //Session session = sessionList.get(position); //Get session at correct recycler position
+    }
 }

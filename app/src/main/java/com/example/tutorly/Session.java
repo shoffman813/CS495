@@ -7,6 +7,7 @@ public class Session {
 
     private String tutorName;
     private String userName;
+    private String key;
     private int meetingMonth;
     private int meetingDay;
     private int meetingYear;
@@ -126,5 +127,13 @@ public class Session {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

@@ -14,10 +14,12 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
 
     private Context mCtx;
     private List<Session> sessionList;
+    private OnSessionListener mOnSessionListener;
 
-    public SessionAdapter(Context mCtx, List<Session> sessionList) {
+    public SessionAdapter(Context mCtx, List<Session> sessionList, OnSessionListener mOnSessionListener) {
         this.mCtx = mCtx;
         this.sessionList = sessionList;
+        this.mOnSessionListener = mOnSessionListener;
     }
 
     @NonNull
@@ -44,9 +46,10 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
         return sessionList.size();
     }
 
-    class SessionViewHolder extends RecyclerView.ViewHolder {
+    class SessionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tutorNameTextView, meetingDateAndTimeTextView, meetingLocationTextView, sessionMessageTextView;
+        OnSessionListener onSessionListener;
 
         public SessionViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,6 +58,17 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
             meetingDateAndTimeTextView = itemView.findViewById(R.id.meetingDateAndTimeTextView);
             meetingLocationTextView = itemView.findViewById(R.id.meetingLocationTextView);
             sessionMessageTextView = itemView.findViewById(R.id.sessionMessageTextView);
+
+            this.onSessionListener = mOnSessionListener;
+
+            itemView.setOnClickListener(this);
         }
+        @Override
+        public void onClick(View v) {
+            onSessionListener.onSessionClick(getAdapterPosition());
+        }
+    }
+    public interface OnSessionListener {
+        void onSessionClick(int position);
     }
 }
