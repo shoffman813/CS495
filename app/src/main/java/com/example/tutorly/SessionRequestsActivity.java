@@ -5,53 +5,60 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /*Class to display all requested sessions*/
 public class SessionRequestsActivity extends AppCompatActivity {
 
     ListView listView;
+    private FirebaseAuth mAuth;
+    FirebaseUser fUser;
+    DatabaseReference databaseSessions;
+    List<Session> sessionList;
+    RecyclerView recyclerView;
+    SessionAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_requests);
 
-        /*Populating the sessions with mock data for the demo*/
+        mAuth = FirebaseAuth.getInstance();
+        fUser = mAuth.getCurrentUser();
+        databaseSessions = FirebaseDatabase.getInstance().getReference("sessions"); //reference to sessions saved under user uid
 
-/*        Session session1 = new Session("John Smith", 4, 12, 5, 30, "Gorgas Library" );
-        Session session2 = new Session("Jane Doe", 4, 13, 2, 15, "Rodgers Library" );
-        Session session3 = new Session("Thanos Jones", 4, 26, 6, 30, "McLure Library" );
-        Session session4 = new Session("Jane Doe", 5, 1, 4, 45, "Gorgas Library" );
-        Session session5 = new Session("Jimmy Walker", 5, 2, 3, 30, "McLure Library" );
+        sessionList = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listView = (ListView) findViewById(R.id.listview);
+        //NOW look up video about adding from firebase
 
-        ArrayList<String> arrayList = new ArrayList<>(); */
+        Query query = databaseSessions.orderByChild("userUid").equalTo(fUser.getUid());
 
-        /*Adding the session descriptions to the ArrayList*/
-/*        arrayList.add("Requested session with " + session1.getTutorName() + " at " + session1.getMeetingHour()
-                +":" + session1.getMeetingMinute() + " at " + session1.getMeetingLocation());
-        arrayList.add("Requested session with " + session2.getTutorName() + " at " + session2.getMeetingHour()
-                +":" + session2.getMeetingMinute() + " at " + session2.getMeetingLocation());
-        arrayList.add("Requested session with " + session3.getTutorName() + " at " + session3.getMeetingHour()
-                +":" + session3.getMeetingMinute() + " at " + session3.getMeetingLocation());
-        arrayList.add("Requested session with " + session4.getTutorName() + " at " + session4.getMeetingHour()
-                +":" + session4.getMeetingMinute() + " at " + session4.getMeetingLocation());
-        arrayList.add("Requested session with " + session5.getTutorName() + " at " + session5.getMeetingHour()
-                +":" + session5.getMeetingMinute() + " at " + session5.getMeetingLocation());   */
+        query.addValueEventListener(valueEventListener);
 
-        /*Using ArrayAdapter to populate ListView with session data*/
-//        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
- //       listView.setAdapter(arrayAdapter);
 
         /*Code to add bottom navigation bar to the sessions request screen*/
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -79,4 +86,24 @@ public class SessionRequestsActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Session session = snapshot.getValue(Session.class); //When tutors who tutor in specific class are found
+                    sessionList.add(session); //Add tutor to tutorList
+                }
+                //arrayAdapter.notifyDataSetChanged();
+                //ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,displayList);
+                //listView.setAdapter(arrayAdapter);
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            //Add exception handling
+        }
+    };
 }

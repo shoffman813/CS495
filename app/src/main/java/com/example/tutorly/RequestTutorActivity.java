@@ -29,7 +29,7 @@ public class RequestTutorActivity extends AppCompatActivity {
     String meetingLocation, sessionStart, startAmOrPm, sessionEnd, endAmOrPm, sessionMessage;
     private FirebaseAuth mAuth;
     FirebaseUser fUser;
-    DatabaseReference databaseTutorSessions, databaseUserSessions;
+    DatabaseReference databaseSessions;
 
     @SuppressLint("SetTextI 18n")
     @Override
@@ -40,8 +40,7 @@ public class RequestTutorActivity extends AppCompatActivity {
         isChanged = 0;
         mAuth = FirebaseAuth.getInstance();
         fUser = mAuth.getCurrentUser();
-        databaseTutorSessions = FirebaseDatabase.getInstance().getReference("tutorSessions"); //reference to sessions saved under tutor uid
-        databaseUserSessions = FirebaseDatabase.getInstance().getReference("userSessions"); //reference to sessions saved under user uid
+        databaseSessions = FirebaseDatabase.getInstance().getReference("sessions"); //reference to sessions database
 
         final String tutorName = getIntent().getStringExtra("tutor_name"); //Saved from TutorSearchListActivity
         final String tutorUid = getIntent().getStringExtra("tutor_uid"); //Saved from TutorSearchListActivity
@@ -149,8 +148,9 @@ public class RequestTutorActivity extends AppCompatActivity {
         session.isConfirmed = false;
         session.isDenied = false;
 
-        databaseTutorSessions.child(tutorUid).setValue(session);
-        databaseUserSessions.child(fUser.getUid()).setValue(session);
+        String id = databaseSessions.push().getKey();
+
+        databaseSessions.child(id).setValue(session);
 
         Toast.makeText( RequestTutorActivity.this, "Session Requested Successfully", Toast.LENGTH_SHORT).show();
 

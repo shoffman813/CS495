@@ -20,13 +20,19 @@
         android:textColor="@color/colorPrimary"
         android:textSize="36sp" />
 
-    <ListView
-        android:id="@+id/listview"
+    <Button
+        android:id="@+id/viewAsTutor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="1dp" />
+        android:layout_height="wrap_content"
+        android:text="View Session Requests as Tutor" />
 
-</LinearLayout>
+   <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
 
 <RelativeLayout
 android:layout_width="match_parent"
