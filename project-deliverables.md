@@ -15,19 +15,15 @@
             <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/sprint1_presentation.pdf">Presentation</a>
                   </li>
              </ul>
-        <li><a href="http://promopass.github.io/FinalPresentation.pdf">Final Presentation</a>
+        <ul>
+        <li><a href="https://github.com/shoffman813/Tutorly/tree/master/deliverables/sprint2">Sprint 1 Deliverables</a>
+             <ul>
+                  <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint2/Sprint2GoalBacklog.docx">Goal Backlog</a>
         </li>
-        <li><a href="https://youtu.be/AqwRxQHTk6M">Video</a>
+            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint2/Sprint2Retrospective.docx">Retrospective</a>
         </li>
-                <li><a href="http://promopass.github.io/PromoPass.apk">APK File</a>
+            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint2/backlog">Backlog</a>
         </li>
-        <li><a href="http://github.com/PromoPass">GitHub Repo</a>
-            <ul>
-              <li>
-                  <a href="http://promopass.github.io/PromoPass.zip">Source Code - App</a></li>
-                  <li><a href="https://github.com/PromoPass/web">Source Code - Web</li>
-                </ul>
-              </ul>
-        </li>
-        </li>
-      </ul>
+            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint2/Tutorly%20(Sprint%202).pdf">Presentation</a>
+                  </li>
+             </ul>
