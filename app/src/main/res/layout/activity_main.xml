@@ -84,14 +84,6 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/AdvSearchBtn"
-            android:layout_width="209dp"
-            android:layout_height="40dp"
-            android:text="Advanced Search Options"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center" />
-
     </LinearLayout>
 
     <RelativeLayout
