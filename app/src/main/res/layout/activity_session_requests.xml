@@ -24,7 +24,7 @@
         android:id="@+id/viewAsTutor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View Session Requests as Tutor" />
+        android:text="View Session Requests as a Tutor" />
 
    <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView2"

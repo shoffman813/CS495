@@ -11,46 +11,46 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
-            android:text="Scheduled Sessions"
+            android:text="Session Requests"
             android:textColor="@color/colorPrimary"
             android:textSize="36sp" />
 
         <Button
-            android:id="@+id/SessionHistoryBtn"
+            android:id="@+id/viewAsStudentBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View scheduled sessions as a tutor"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="View Session Requests as a Student" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView3"
+            android:id="@+id/recyclerViewSessionRequestsAsTutor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     </LinearLayout>
 
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:orientation="horizontal"
-    android:layout_alignParentBottom="true">
 
-    <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/bottom_navigation"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@layout/my_navigation_items"
-        app:labelVisibilityMode="labeled"/>
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/bottom_navigation_10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:menu="@layout/my_navigation_items"
+            app:labelVisibilityMode="labeled"/>
 
     </RelativeLayout>
 

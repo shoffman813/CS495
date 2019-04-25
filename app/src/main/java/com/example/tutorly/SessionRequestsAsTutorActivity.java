@@ -9,9 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,51 +23,49 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Class to display all requested sessions*/
-public class SessionRequestsActivity extends AppCompatActivity {
+public class SessionRequestsAsTutorActivity extends AppCompatActivity {
 
-    ListView listView;
     private FirebaseAuth mAuth;
     FirebaseUser fUser;
     DatabaseReference databaseSessions;
-    List<Session> sessionList;
     RecyclerView recyclerView;
-    SessionAdapter adapter;
-    Button viewAsTutorBtn;
+    SessionAsTutorAdapter adapter;
+    List<Session> sessionList;
+    Button viewAsStudentBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_session_requests);
+        setContentView(R.layout.activity_session_requests_as_tutor);
 
         mAuth = FirebaseAuth.getInstance();
         fUser = mAuth.getCurrentUser();
-        databaseSessions = FirebaseDatabase.getInstance().getReference("sessions"); //reference to sessions saved under user uid
 
         sessionList = new ArrayList<>();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSessionRequestsAsTutor);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SessionAdapter(this, sessionList);
+        adapter = new SessionAsTutorAdapter(this, sessionList);
         recyclerView.setAdapter(adapter);
 
-        viewAsTutorBtn = (Button) findViewById(R.id.viewAsTutor);
-        viewAsTutorBtn.setOnClickListener(new View.OnClickListener() {
+        databaseSessions = FirebaseDatabase.getInstance().getReference("sessions"); //reference to sessions saved under user uid
+
+        Query query = databaseSessions.orderByChild("tutorUid").equalTo(fUser.getUid());
+
+        query.addValueEventListener(valueEventListener);
+
+        viewAsStudentBtn = (Button) findViewById(R.id.viewAsStudentBtn);
+        viewAsStudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SessionRequestsActivity.this, SessionRequestsAsTutorActivity.class);
+                Intent intent = new Intent(SessionRequestsAsTutorActivity.this, SessionRequestsActivity.class);
                 startActivity(intent);
             }
         });
 
-        Query query = databaseSessions.orderByChild("userUid").equalTo(fUser.getUid());
-
-        query.addValueEventListener(valueEventListener);
-
-
         /*Code to add bottom navigation bar to the sessions request screen*/
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_10);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -77,19 +73,19 @@ public class SessionRequestsActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.profile_item: //Open Profile screen when button is pressed
-                                startActivity(new Intent(SessionRequestsActivity.this, profileActivity.class));
+                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, profileActivity.class));
                                 break;
                             case R.id.settings_item: //Open Settings screen when button is pressed
-                                startActivity(new Intent(SessionRequestsActivity.this, AccountActivity.class));
+                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, AccountActivity.class));
                                 break;
                             case R.id.home_item:  //Open Home screen when button is pressed
-                                startActivity(new Intent(SessionRequestsActivity.this, MainActivity.class));
+                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, MainActivity.class));
                                 break;
                             case R.id.scheduled_item: //Open Scheduled Sessions screen when button is pressed
-                                startActivity(new Intent(SessionRequestsActivity.this, SessionsScheduledActivity.class));
+                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, SessionsScheduledActivity.class));
                                 break;
                             case R.id.requested_item: //Open Requested Sessions screen when button is pressed
-                                startActivity(new Intent(SessionRequestsActivity.this, SessionRequestsActivity.class));
+                                startActivity(new Intent(SessionRequestsAsTutorActivity.this, SessionRequestsActivity.class));
                                 break;
                         }
                         return true;
@@ -105,7 +101,7 @@ public class SessionRequestsActivity extends AppCompatActivity {
                     Session session = snapshot.getValue(Session.class); //When tutors who tutor in specific class are found
                     sessionList.add(session); //Add session to sessionList
                 }
-            adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
         }
 

@@ -32,7 +32,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
     @Override
     public void onBindViewHolder(@NonNull SessionViewHolder sessionViewHolder, int i) {
         Session session = sessionList.get(i);
-        sessionViewHolder.tutorNameTextView.setText(session.getTutorName());
+        sessionViewHolder.tutorNameTextView.setText("Tutor: " + session.getTutorName());
         sessionViewHolder.meetingDateAndTimeTextView.setText("Meeting on " + session.getMeetingMonth() + "/" + session.getMeetingDay()
             + "/" + session.getMeetingYear() + " at " + session.getMeetingStartTime());
         sessionViewHolder.meetingLocationTextView.setText("at " + session.getMeetingLocation());
