@@ -14,7 +14,7 @@
         </li>
             <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/sprint1_presentation.pdf">Presentation</a>
                   </li>
-             <ul>
+             </ul>
         <li><a href="http://promopass.github.io/FinalPresentation.pdf">Final Presentation</a>
         </li>
         <li><a href="https://youtu.be/AqwRxQHTk6M">Video</a>
