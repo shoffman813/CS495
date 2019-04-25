@@ -5,15 +5,16 @@
 <section class="main-content">
       <ul>
         <li><a href="https://github.com/shoffman813/Tutorly/tree/master/deliverables/sprint1">Sprint 1 Deliverables</a>
-        </li>
-            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/Sprint1GoalBacklog.docx">Goal Backlog</a>
+             <ul>
+                  <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/Sprint1GoalBacklog.docx">Goal Backlog</a>
         </li>
             <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/Sprint1Retrospective.docx">Retrospective</a>
         </li>
             <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/backlog">Backlog</a>
         </li>
             <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/sprint1_presentation.pdf">Presentation</a>
-        </li>
+                  </li>
+             <ul>
         <li><a href="http://promopass.github.io/FinalPresentation.pdf">Final Presentation</a>
         </li>
         <li><a href="https://youtu.be/AqwRxQHTk6M">Video</a>
