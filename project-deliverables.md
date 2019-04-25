@@ -1,18 +1,18 @@
 ## [Home](README.md) || [Project Deliverables](project-deliverables.md) || [About Us](about-us.md)
 
-# Project Deliverables Test
+# Project Deliverables
 
 <section class="main-content">
       <ul>
-        <li><a href="http://promopass.github.io/PromoPass Presentation.pdf">PromoPass Presentation</a>
+        <li><a href="https://github.com/shoffman813/Tutorly/tree/master/deliverables/sprint1">Sprint 1 Deliverables</a>
         </li>
-        <li><a href="http://promopass.github.io/Requirements Presentation.pdf">Requirements Presentation</a>
+            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/Sprint1GoalBacklog.docx">Goal Backlog</a>
         </li>
-        <li><a href="http://promopass.github.io/Requirements Document.pdf">Requirements Document</a>
+            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/Sprint1Retrospective.docx">Retrospective</a>
         </li>
-        <li><a href="http://promopass.github.io/Design Presentation.pdf">Design Presentation</a>
+            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/backlog">Backlog</a>
         </li>
-        <li><a href="http://promopass.github.io/Design Document.pdf">Design Document</a>
+            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/sprint1_presentation.pdf">Presentation</a>
         </li>
         <li><a href="http://promopass.github.io/FinalPresentation.pdf">Final Presentation</a>
         </li>
