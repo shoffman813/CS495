@@ -49,6 +49,8 @@ public class SessionRequestsActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SessionAdapter(this, sessionList);
+        recyclerView.setAdapter(adapter);
 
         //NOW look up video about adding from firebase
 
@@ -93,11 +95,9 @@ public class SessionRequestsActivity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Session session = snapshot.getValue(Session.class); //When tutors who tutor in specific class are found
-                    sessionList.add(session); //Add tutor to tutorList
+                    sessionList.add(session); //Add session to sessionList
                 }
-                //arrayAdapter.notifyDataSetChanged();
-                //ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,displayList);
-                //listView.setAdapter(arrayAdapter);
+            adapter.notifyDataSetChanged();
             }
         }
 
