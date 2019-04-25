@@ -15,8 +15,6 @@
             <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint1/sprint1_presentation.pdf">Presentation</a>
                   </li>
              </ul>
-      </ul>      
-        <ul>
         <li><a href="https://github.com/shoffman813/Tutorly/tree/master/deliverables/sprint2">Sprint 2 Deliverables</a>
              <ul>
                   <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint2/Sprint2GoalBacklog.docx">Goal Backlog</a>
@@ -37,4 +35,5 @@
             <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint3/Sprint3Retrospective.docx">Retrospective</a>
             <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/sprint3/Tutorly-%20Hoffman%2C%20Hawblitzel%2C%20Kimmel%2C%20Parse.pdf">Presentation</a>
                   </li>
-             </ul>
+              </ul>
+              
