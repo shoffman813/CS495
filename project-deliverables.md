@@ -40,5 +40,7 @@
                   </li>
             <li><a href="https://github.com/shoffman813/Tutorly">GitHub Repo</a>
                   </li>
+            <li><a href="https://youtu.be/pVJJpkHrjZQ">Video</a>
+                  </li>
       </ul>
               
