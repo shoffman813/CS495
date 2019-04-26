@@ -38,7 +38,7 @@
                   </li>
             <li><a href="insert link here">APK File</a>
                   </li>
-            <li><a href="insert link here">GitHub Repo</a>
+            <li><a href="https://github.com/shoffman813/Tutorly">GitHub Repo</a>
                   </li>
       </ul>
               
