@@ -36,5 +36,9 @@
               </ul>
                <li><a href="insert link here">Source Code</a>
                   </li>
+            <li><a href="insert link here">APK File</a>
+                  </li>
+            <li><a href="insert link here">GitHub Repo</a>
+                  </li>
       </ul>
               
