@@ -35,7 +35,7 @@
                   </li>
                <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/appSourceCode.zip?raw=true">Source Code</a>
                   </li>
-            <li><a href="insert link here">APK File</a>
+            <li><a href="https://github.com/shoffman813/Tutorly/blob/master/deliverables/Tutorly.zip?raw=true">APK File</a>
                   </li>
             <li><a href="https://github.com/shoffman813/Tutorly">GitHub Repo</a>
                   </li>
