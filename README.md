@@ -11,5 +11,5 @@ As computer science students, we had to take our fair share of difficult classes
 # Watch Our Video!
  <section class="main-content">
 <center>
-    <iframe width="720" height="480" src="https://www.youtube.com/watch?v=pVJJpkHrjZQ&feature=youtu.be" frameborder="0" allowfullscreen></iframe>  </center>
+    <iframe width="720" height="480" src="https://www.youtube.com/embed/pVJJpkHrjZQ&feature=youtu.be" frameborder="0" allowfullscreen></iframe>  </center>
 </section>
